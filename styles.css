@@ -206,8 +206,18 @@ header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
   height: 76px;
   transition: all 0.3s ease;
+}
+
+header .logo-link {
+  flex: 0 0 auto;
+}
+
+header nav {
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 header.scrolled .container {
@@ -238,8 +248,15 @@ header.scrolled .container {
 
 nav ul {
   display: flex;
+  flex-wrap: nowrap;
   list-style: none;
   gap: 1.75rem;
+  align-items: center;
+}
+
+nav li {
+  flex: 0 0 auto;
+  display: flex;
   align-items: center;
 }
 
@@ -250,6 +267,7 @@ nav a {
   color: var(--text-secondary);
   position: relative;
   padding: 0.3rem 0;
+  white-space: nowrap;
 }
 
 nav a:hover, nav a.active {
@@ -2565,6 +2583,65 @@ footer {
 }
 
 /* Responsive Styles */
+/* Keep the header on a single line as the viewport narrows */
+@media (max-width: 1320px) {
+  nav ul {
+    gap: 1.25rem;
+  }
+  nav a {
+    font-size: 0.88rem;
+  }
+  .nav-cta {
+    padding: 0.45rem 0.8rem !important;
+  }
+}
+
+@media (max-width: 1150px) {
+  header .container {
+    gap: 1rem;
+  }
+  nav ul {
+    gap: 0.9rem;
+  }
+  nav a {
+    font-size: 0.84rem;
+  }
+  .logo-text {
+    font-size: 1.2rem;
+  }
+  /* Collapse the GitHub CTA to its icon so the links keep their labels */
+  .nav-cta#nav-btn-github,
+  .nav-cta#nav-btn-github-dl {
+    font-size: 0;
+    padding: 0.45rem 0.6rem !important;
+  }
+  .nav-cta#nav-btn-github i,
+  .nav-cta#nav-btn-github-dl i {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  nav ul {
+    gap: 0.65rem;
+  }
+  nav a {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .logo-text {
+    display: none;
+  }
+  nav ul {
+    gap: 0.5rem;
+  }
+  nav a {
+    font-size: 0.76rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .sim-item {
     grid-template-columns: 1fr;
