@@ -9,9 +9,9 @@
   <!-- SEO Meta Tags -->
   <link rel="canonical" href="https://physbox.io/">
   <meta name="description"
-    content="Explore PhysBox, a powerful suite of open-source, browser-based simulation tools. High-fidelity electronics, MuJoCo 3D physics, OpenSCAD 3D printing, and hardware-in-the-loop microcontrollers—plus 81 Model Context Protocol tools so AI agents can drive every simulator. 100% local and free.">
+    content="Explore PhysBox, a powerful suite of open-source, browser-based simulation tools. Browser-based EDA with schematic capture and SPICE, MuJoCo 3D physics, OpenSCAD 3D printing, and hardware-in-the-loop microcontrollers—plus 81 Model Context Protocol tools so AI agents can drive every simulator. 100% local and free.">
   <meta name="keywords"
-    content="simulation, electronics simulator, WASM physics, MuJoCo, cellular automata, Runge Kutta, open source simulator, ngspice wasm, circuit sandbox, MCP server, Model Context Protocol, AI agent tools, world model, OpenSCAD, hardware in the loop, laser cutting, CNC milling, vector design">
+    content="simulation, EDA, electronic design automation, browser EDA, schematic capture, electronics simulator, WASM physics, MuJoCo, cellular automata, Runge Kutta, open source simulator, ngspice wasm, circuit sandbox, MCP server, Model Context Protocol, AI agent tools, world model, OpenSCAD, hardware in the loop, laser cutting, CNC milling, vector design">
   <meta name="author" content="physbox.io">
 
   <!-- Open Graph / Facebook -->
@@ -54,7 +54,7 @@
       "name": "PhysBox",
       "url": "https://physbox.io"
     },
-    "description": "A high-fidelity open-source simulation suite running natively in WebAssembly. Features PhysBox: Volt (electronics + MCU with audio), PhysBox: Mesh (MuJoCo rigid body physics), PhysBox: Etch (laser cutting and CNC fabrication), and PhysBox: Flux (cellular automata, Runge-Kutta, and LLM nodes).",
+    "description": "A high-fidelity open-source simulation suite running natively in WebAssembly. Features PhysBox: Volt (browser-based EDA \u2014 schematic capture, SPICE simulation and MCU with audio), PhysBox: Mesh (MuJoCo rigid body physics), PhysBox: Etch (laser cutting and CNC fabrication), and PhysBox: Flux (cellular automata, Runge-Kutta, and LLM nodes).",
     "softwareVersion": "2.0.0",
     "license": "https://opensource.org/licenses/MIT",
     "downloadUrl": "https://github.com/physbox-io"
@@ -84,6 +84,7 @@
           <li><a href="#tech" id="nav-link-tech">Architecture</a></li>
           <li><a href="#pledge" id="nav-link-pledge">Open Source</a></li>
           <li><a href="pro.html" id="nav-link-pro">Pro</a></li>
+          <li><a href="contact.html" id="nav-link-contact">Contact</a></li>
           <li id="nav-account"></li>
           <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github"><i
                 class="fab fa-github"></i> Star on GitHub</a></li>
@@ -286,20 +287,22 @@
           </div>
           <div class="sim-content">
             <div class="sim-badges">
-              <span class="sim-badge circuit-badge">Electronics & Signals</span>
+              <span class="sim-badge circuit-badge">EDA &middot; Electronics & Signals</span>
               <span class="sim-badge badge-hil"><span class="pulse-dot"></span>⚡ Hardware-In-The-Loop (HIL)</span>
             </div>
             <h3 class="sim-name">PhysBox: Volt</h3>
             <p class="sim-desc">
-              A high-fidelity electronics playground powered by an optimized, custom-compiled <strong>Ngspice
-                WebAssembly engine</strong> with real-time <strong>Hardware-In-The-Loop (HIL) execution</strong>.
+              A full <strong>EDA</strong> (Electronic Design Automation) environment that runs entirely in the
+              browser &mdash; schematic capture, netlist extraction and analog simulation on one canvas &mdash; powered
+              by an optimized, custom-compiled <strong>Ngspice WebAssembly engine</strong> with real-time
+              <strong>Hardware-In-The-Loop (HIL) execution</strong>.
               Design, wire, and test complex electrical circuits with true physical waveforms synchronized directly with
               physical microcontrollers.
             </p>
             <ul class="sim-features">
               <li><strong>Hardware-In-The-Loop Microcontroller Bridge:</strong> Wire physical ESP32 & CYD microcontrollers directly into the WASM SPICE worker via high-speed UART (460,800 baud) & WebSockets. Supports MicroPython & C++ native batching (`hil_batch`).</li>
               <li><strong>Integrated Audio Inputs & Outputs:</strong> Bind real hardware microphone inputs to input nodes, feed raw DAC outputs directly to your system speakers, and synthesize hardware filters in real time.</li>
-              <li><strong>Visual React Flow Canvas & MCU Sandbox:</strong> Build and modify circuit nets with a modular node-editor, program microcontrollers inside the schematic, and execute firmware cycles alongside passive components.</li>
+              <li><strong>Visual React Flow Canvas & MCU Sandbox:</strong> Schematic capture in a modular node-editor &mdash; the EDA front end that compiles straight to the SPICE netlist the solver runs. Build and modify circuit nets, program microcontrollers inside the schematic, and execute firmware cycles alongside passive components.</li>
             </ul>
             <div class="sim-footer">
               <a href="https://volt.physbox.io" class="btn btn-primary" id="btn-launch-circuit"><i
@@ -909,6 +912,7 @@
                   class="fab fa-github"></i> GitHub</a></li>
             <li><a href="#tech" id="footer-link-docs"><i class="fas fa-book"></i> Architecture</a></li>
             <li><a href="license.html" id="footer-link-license"><i class="fas fa-scale-balanced"></i> PPPL License</a></li>
+            <li><a href="contact.html" id="footer-link-contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
           </ul>
         </div>
         <div class="footer-newsletter">
