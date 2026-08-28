@@ -31,6 +31,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://physbox.io/about.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://physbox.io/contact.html</loc>
     <lastmod>2026-08-25</lastmod>
     <changefreq>yearly</changefreq>

@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="geminiBg" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="55%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
+
+    <!-- Hair Gradient (Electric Cyan to Neon Purple) -->
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="35%" stop-color="#3b82f6"/>
+      <stop offset="70%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+
+    <!-- Hair Dark Base -->
+    <linearGradient id="hairDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+
+    <!-- Skin Gradient -->
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fed7aa"/>
+      <stop offset="100%" stop-color="#fba885"/>
+    </linearGradient>
+
+    <!-- Cyber Jacket Gradient -->
+    <linearGradient id="jacketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="50%" stop-color="#27272a"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+
+    <!-- Neon Glow Filter -->
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#06b6d4" flood-opacity="0.8"/>
+    </filter>
+    <filter id="pinkGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#ec4899" flood-opacity="0.7"/>
+    </filter>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Circular Base -->
+  <circle cx="200" cy="200" r="190" fill="url(#geminiBg)" stroke="#3b82f6" stroke-width="4"/>
+
+  <!-- Cyberpunk Background Grid & Aura -->
+  <circle cx="200" cy="180" r="140" fill="none" stroke="#6366f1" stroke-width="1.5" opacity="0.25" stroke-dasharray="6 6"/>
+  <circle cx="200" cy="180" r="170" fill="none" stroke="#06b6d4" stroke-width="1" opacity="0.2"/>
+
+  <!-- Background Sparks / Glitches -->
+  <line x1="60" y1="120" x2="110" y2="120" stroke="#06b6d4" stroke-width="2" opacity="0.4"/>
+  <line x1="300" y1="150" x2="340" y2="150" stroke="#ec4899" stroke-width="2" opacity="0.4"/>
+
+  <g filter="url(#dropShadow)">
+
+    <!-- Torso / Cyber Leather Jacket & Graphic T-Shirt -->
+    <!-- Shoulders -->
+    <path d="M85 390 C85 295 130 270 200 270 C270 270 315 295 315 390 Z" fill="url(#jacketGrad)"/>
+    
+    <!-- Neon Accent Lapels -->
+    <path d="M145 285 L120 390 L165 390 L185 315 Z" fill="#18181b" stroke="#06b6d4" stroke-width="2"/>
+    <path d="M255 285 L280 390 L235 390 L215 315 Z" fill="#18181b" stroke="#ec4899" stroke-width="2"/>
+
+    <!-- T-Shirt Center with `!important` code badge -->
+    <path d="M175 290 L225 290 L230 390 L170 390 Z" fill="#09090b"/>
+    <text x="200" y="355" fill="#06b6d4" font-family="monospace" font-size="11" font-weight="900" text-anchor="middle" filter="url(#neonGlow)">&lt;canvas/&gt;</text>
+    <text x="200" y="372" fill="#ec4899" font-family="monospace" font-size="10" font-weight="700" text-anchor="middle">!important</text>
+
+    <!-- Studio / Gaming Headphones (around neck) -->
+    <!-- Headphone Band -->
+    <path d="M125 250 C125 305 275 305 275 250" fill="none" stroke="#27272a" stroke-width="22" stroke-linecap="round"/>
+    <path d="M125 250 C125 305 275 305 275 250" fill="none" stroke="#06b6d4" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+
+    <!-- Left Ear Cup (resting on collarbone) -->
+    <g transform="translate(108, 245) rotate(20)">
+      <rect x="0" y="0" width="34" height="48" rx="14" fill="#18181b" stroke="#3b82f6" stroke-width="2.5"/>
+      <circle cx="17" cy="24" r="9" fill="none" stroke="#06b6d4" stroke-width="2.5" filter="url(#neonGlow)"/>
+    </g>
+
+    <!-- Right Ear Cup -->
+    <g transform="translate(260, 255) rotate(-20)">
+      <rect x="0" y="0" width="34" height="48" rx="14" fill="#18181b" stroke="#ec4899" stroke-width="2.5"/>
+      <circle cx="17" cy="24" r="9" fill="none" stroke="#ec4899" stroke-width="2.5" filter="url(#pinkGlow)"/>
+    </g>
+
+    <!-- Neck & Choker -->
+    <path d="M175 210 L175 275 C185 280 215 280 225 275 L225 210 Z" fill="#fba885"/>
+    <!-- Cyberpunk Choker with small hardware ring -->
+    <rect x="174" y="246" width="52" height="9" rx="2" fill="#09090b"/>
+    <circle cx="200" cy="250.5" r="4.5" fill="none" stroke="#06b6d4" stroke-width="2"/>
+
+    <!-- Head / Face -->
+    <path d="M145 155 C145 95 255 95 255 155 C255 220 220 245 200 245 C180 245 145 220 145 155 Z" fill="url(#skinGrad)"/>
+
+    <!-- Ears & Piercings -->
+    <ellipse cx="143" cy="170" rx="9" ry="14" fill="#fba885"/>
+    <circle cx="138" cy="174" r="2.2" fill="#06b6d4" filter="url(#neonGlow)"/>
+    <circle cx="140" cy="166" r="2" fill="#ec4899"/>
+    
+    <ellipse cx="257" cy="170" rx="9" ry="14" fill="#fba885"/>
+    <circle cx="262" cy="174" r="2.2" fill="#06b6d4" filter="url(#neonGlow)"/>
+
+    <!-- Eyes (Sharp, rebellious eyeliner & intense tech gaze) -->
+    <!-- Left Eye & Winged Liner -->
+    <path d="M160 160 Q175 152 188 160 Q175 167 160 160 Z" fill="#ffffff"/>
+    <path d="M154 158 Q174 148 190 158" fill="none" stroke="#09090b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M154 158 L148 152" stroke="#09090b" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="176" cy="160" r="6" fill="#06b6d4"/>
+    <circle cx="176" cy="160" r="3.5" fill="#09090b"/>
+    <circle cx="174" cy="158" r="1.8" fill="#ffffff"/>
+
+    <!-- Right Eye & Winged Liner -->
+    <path d="M212 160 Q225 152 240 160 Q225 167 212 160 Z" fill="#ffffff"/>
+    <path d="M210 158 Q226 148 246 158" fill="none" stroke="#09090b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M246 158 L252 152" stroke="#09090b" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="224" cy="160" r="6" fill="#8b5cf6"/>
+    <circle cx="224" cy="160" r="3.5" fill="#09090b"/>
+    <circle cx="222" cy="158" r="1.8" fill="#ffffff"/>
+
+    <!-- Eyebrows (Left has rebellious slit!) -->
+    <path d="M158 144 Q172 138 186 144" fill="none" stroke="#18181b" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="168" y1="139" x2="171" y2="146" stroke="#fed7aa" stroke-width="2.5"/> <!-- Eyebrow Slit -->
+    
+    <path d="M214 144 Q228 138 242 144" fill="none" stroke="#18181b" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- Nose & Stud -->
+    <path d="M198 165 Q200 182 203 182 Q206 182 204 176" fill="none" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="194" cy="180" r="1.8" fill="#06b6d4" filter="url(#neonGlow)"/> <!-- Nose Stud -->
+
+    <!-- Confident Rebellious Smirk -->
+    <path d="M188 208 Q200 213 216 204" fill="none" stroke="#991b1b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M213 205 Q217 203 219 207" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- ASYMMETRICAL REBEL HAIR (Undercut + Vibrant Cyber Neon Waves) -->
+    <!-- Back Hair Volume -->
+    <path d="M135 150 C120 70 270 55 275 140 C280 200 260 240 255 250 C235 200 245 150 240 130 C230 100 170 95 145 130 Z" fill="url(#hairDark)"/>
+    
+    <!-- Big Front Neon Cyber Sweep / Fringe -->
+    <path d="M130 145 C125 80 200 45 265 65 C285 72 290 95 275 125 C255 160 215 150 180 145 C150 140 135 155 125 185 C120 165 125 150 130 145 Z" fill="url(#hairGrad)"/>
+    
+    <!-- Neon Highlight Strands -->
+    <path d="M140 125 C175 75 255 80 270 120" fill="none" stroke="#06b6d4" stroke-width="4.5" stroke-linecap="round" filter="url(#neonGlow)"/>
+    <path d="M130 150 C145 110 220 105 250 145" fill="none" stroke="#ec4899" stroke-width="3.5" stroke-linecap="round" filter="url(#pinkGlow)"/>
+    <path d="M125 180 C120 220 145 245 150 255 C140 230 135 205 132 185 Z" fill="url(#hairGrad)"/>
+
+    <!-- Side Undercut Buzz Lines (Right side) -->
+    <g transform="translate(252, 130)">
+      <line x1="0" y1="0" x2="10" y2="4" stroke="#8b5cf6" stroke-width="2" opacity="0.8"/>
+      <line x1="-2" y1="7" x2="8" y2="11" stroke="#8b5cf6" stroke-width="2" opacity="0.8"/>
+      <line x1="-4" y1="14" x2="6" y2="18" stroke="#8b5cf6" stroke-width="2" opacity="0.8"/>
+    </g>
+
+    <!-- Floating Rebel Dev Badge: Neon Lightning / CSS -->
+    <g transform="translate(65, 260)" filter="url(#neonGlow)">
+      <circle cx="22" cy="22" r="22" fill="#09090b" stroke="#06b6d4" stroke-width="2.5"/>
+      <!-- Lightning Bolt -->
+      <path d="M25 8 L13 23 L21 23 L17 36 L31 19 L23 19 Z" fill="#06b6d4"/>
+    </g>
+
+    <!-- Cyber Code Sparkles -->
+    <g transform="translate(315, 95)" filter="url(#pinkGlow)">
+      <path d="M15 0 Q15 15 30 15 Q15 15 15 30 Q15 15 0 15 Q15 15 15 0 Z" fill="#ec4899"/>
+    </g>
+    <g transform="translate(75, 80) scale(0.7)" filter="url(#neonGlow)">
+      <path d="M15 0 Q15 15 30 15 Q15 15 15 30 Q15 15 0 15 Q15 15 15 0 Z" fill="#06b6d4"/>
+    </g>
+
+  </g>
+</svg>
+

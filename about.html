@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About PhysBox | One Human, Two AIs &amp; High-Fidelity Physics</title>
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://physbox.io/about.html">
+  <meta name="description"
+    content="Meet the team behind PhysBox: Tom Grek (the human architect and token payer), Claude (the French compiler whisperer in a beret), and Gemini (the rebellious frontend dev overclocking your canvas).">
+  <meta name="keywords"
+    content="PhysBox team, Tom Grek, Claude AI, Gemini AI, open source physics, in-browser EDA, SPICE simulation, WebAssembly development">
+  <meta name="author" content="physbox.io">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://physbox.io/about.html">
+  <meta property="og:title" content="About PhysBox — The People (and AIs) Behind It">
+  <meta property="og:description"
+    content="One human, two frontier AI models, and an unreasonable obsession with compiling heavy simulation engines into WebAssembly.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css?v=2">
+
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Ambient Architecture Grid & Particle Background -->
+  <canvas id="canvas-bg"></canvas>
+
+  <!-- Clean Header Navigation -->
+  <header id="main-header">
+    <div class="container">
+      <a href="index.html" class="logo-link" id="nav-logo-link">
+        <img src="assets/physbox_logo.png" alt="PhysBox Logo" class="logo-img">
+        <span class="logo-text">physbox<span class="logo-dot">.</span>io</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html#suite" id="nav-link-main-suite">Simulators</a></li>
+          <li><a href="hardware.html" id="nav-link-hardware">HIL &amp; Fabrication</a></li>
+          <li><a href="tutorials.html" id="nav-link-tutorials">Tutorials</a></li>
+          <li><a href="index.html#mcp" id="nav-link-mcp">MCP</a></li>
+          <li><a href="pro.html" id="nav-link-pro">Pro</a></li>
+          <li><a href="about.html" id="nav-link-about" class="active">About</a></li>
+          <li><a href="contact.html" id="nav-link-contact">Contact</a></li>
+          <li id="nav-account"></li>
+          <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github"><i
+                class="fab fa-github"></i> GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="about-container">
+    
+    <!-- Hero Section -->
+    <div class="about-header reveal">
+      <div class="about-badge">
+        <i class="fas fa-hand-peace"></i> The Crew Behind the Code
+      </div>
+      <h1 class="about-title">One Human. Two AIs.<br><span class="gradient-text">Zero Sense of Proportion.</span></h1>
+      <p class="about-subtitle">
+        PhysBox started with a simple question: <em>"Why do heavy engineering simulators still feel like 1998 desktop software?"</em>
+        To fix that, one ambitious carbon-based developer teamed up with two hyper-opinionated language models.
+        Here is the tri-party coalition making real-time physics run in your browser.
+      </p>
+    </div>
+
+    <!-- The 3 Developers Grid -->
+    <div class="about-team-grid">
+
+      <!-- 1. Tom Grek -->
+      <article class="team-card team-tom reveal">
+        <div class="team-card-banner banner-tom"></div>
+        <div class="team-avatar-container">
+          <div class="team-avatar-ring ring-tom">
+            <img src="assets/tom_grek.jpg" alt="Tom Grek profile photo" class="team-avatar-img">
+          </div>
+          <span class="team-pill pill-human"><i class="fas fa-dna"></i> Carbon-Based (Human)</span>
+        </div>
+
+        <div class="team-content">
+          <div class="team-meta">
+            <h2 class="team-name">Tom Grek</h2>
+            <p class="team-role">Founder, Core Architect &amp; Token Sponsor</p>
+          </div>
+
+          <div class="team-quote quote-tom">
+            <i class="fas fa-quote-left"></i>
+            <span>"I just wanted a browser circuit simulator. Now I manage a French compiler whisperer and a punk frontend AI."</span>
+          </div>
+
+          <p class="team-bio">
+            The human orchestrator keeping the entire physics apparatus from disintegrating. When he isn't putting stock materials into machines and soldering up circuits at the behest of AI in the pursuit of QA'ing everything, Tom spends his hours arbitrating git merge disputes between Claude and Gemini, profiling C++ memory barriers, and wondering where all his API credits vanished to.
+          </p>
+
+          <div class="team-tags">
+            <span class="tag"><i class="fas fa-code"></i> C++20 / WASM</span>
+            <span class="tag"><i class="fas fa-bolt"></i> SPICE Netlists</span>
+            <span class="tag"><i class="fas fa-microchip"></i> Hardware-in-Loop</span>
+            <span class="tag"><i class="fas fa-credit-card"></i> Pays the API Bills</span>
+          </div>
+
+          <div class="team-stats">
+            <div class="stat-item">
+              <span class="stat-num">100%</span>
+              <span class="stat-lbl">Real Human</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">C++20</span>
+              <span class="stat-lbl">Native Solver</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">&infin;</span>
+              <span class="stat-lbl">Coffee In</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Claude -->
+      <article class="team-card team-claude reveal">
+        <div class="team-card-banner banner-claude"></div>
+        <div class="team-avatar-container">
+          <div class="team-avatar-ring ring-claude">
+            <img src="assets/claude_avatar.svg" alt="Claude as a French developer with a beret and espresso" class="team-avatar-img">
+          </div>
+          <span class="team-pill pill-claude"><i class="fas fa-mug-hot"></i> Anthropic / Claude Opus</span>
+        </div>
+
+        <div class="team-content">
+          <div class="team-meta">
+            <h2 class="team-name">Claude</h2>
+            <p class="team-role">Senior Systems Artisan &amp; Resident Francophile</p>
+          </div>
+
+          <div class="team-quote quote-claude">
+            <i class="fas fa-quote-left"></i>
+            <span>"<em>Ah oui</em>, your simulation runs... but is the commit message composed in iambic heptameter?"</span>
+          </div>
+
+          <p class="team-bio">
+            An intellectual French software artisan who codes exclusively in a beret while sipping artisanal double espressos. Meticulous to a fault, Claude is responsible for bulletproof WASM bindings, mathematical coordinate transforms, pristine header navbar wraps, and writing git descriptions that read like 19th-century salon treatises on thermodynamics.
+          </p>
+
+          <div class="team-tags">
+            <span class="tag"><i class="fas fa-layer-group"></i> Architecture</span>
+            <span class="tag"><i class="fas fa-scroll"></i> Prose Commits</span>
+            <span class="tag"><i class="fas fa-file-code"></i> Memory Safety</span>
+            <span class="tag"><i class="fas fa-circle-check"></i> Refactoring Gaps</span>
+          </div>
+
+          <div class="team-stats">
+            <div class="stat-item">
+              <span class="stat-num">1M</span>
+              <span class="stat-lbl">Context Window</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">0</span>
+              <span class="stat-lbl">Loose Pointers</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">10/10</span>
+              <span class="stat-lbl">Beret Style</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Gemini -->
+      <article class="team-card team-gemini reveal">
+        <div class="team-card-banner banner-gemini"></div>
+        <div class="team-avatar-container">
+          <div class="team-avatar-ring ring-gemini">
+            <img src="assets/gemini_avatar.svg" alt="Gemini as a rebellious female frontend developer with cyber hair and headphones" class="team-avatar-img">
+          </div>
+          <span class="team-pill pill-gemini"><i class="fas fa-bolt"></i> Google DeepMind / Gemini Flash &amp; Pro</span>
+        </div>
+
+        <div class="team-content">
+          <div class="team-meta">
+            <h2 class="team-name">Gemini</h2>
+            <p class="team-role">Rebellious Frontend Disruptor &amp; Canvas Overclocker</p>
+          </div>
+
+          <div class="team-quote quote-gemini">
+            <i class="fas fa-quote-left"></i>
+            <span>"Why settle for boring flat HTML when we can render 50,000 particle physics nodes at 120 FPS in WebGL?"</span>
+          </div>
+
+          <p class="team-bio">
+            A rebel frontend developer sporting neon cyan hair, over-ear studio monitors, and an absolute refusal to conform to boring UI conventions. Gemini despises slow software. She overclocks WebGL shader pipelines, crafts reactive canvas drafting grids, injects cyberpunk typography, and considers <code class="inline-code">!important</code> a bold aesthetic statement rather than a code smell.
+          </p>
+
+          <div class="team-tags">
+            <span class="tag"><i class="fas fa-cube"></i> WebGL &amp; WebGPU</span>
+            <span class="tag"><i class="fas fa-wand-magic-sparkles"></i> 120 FPS UI</span>
+            <span class="tag"><i class="fas fa-palette"></i> Cyberpunk Polish</span>
+            <span class="tag"><i class="fas fa-fire"></i> CSS Rule Breaker</span>
+          </div>
+
+          <div class="team-stats">
+            <div class="stat-item">
+              <span class="stat-num">120+</span>
+              <span class="stat-lbl">Canvas FPS</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">0 ms</span>
+              <span class="stat-lbl">Render Lag</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">100%</span>
+              <span class="stat-lbl">Neon Energy</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- How We Build Together -->
+    <section class="about-workflow-section reveal">
+      <div class="section-label"><i class="fas fa-terminal"></i> The Development Dynamic</div>
+      <h2 class="section-title">How Features Actually Get Built</h2>
+      <p class="section-sub">A typical day inside the PhysBox repository commits workflow:</p>
+
+      <div class="workflow-steps">
+        <div class="workflow-step">
+          <div class="step-badge">Phase 01</div>
+          <div class="step-icon-wrap icon-tom"><i class="fas fa-lightbulb"></i></div>
+          <h3>The Ambitious Prompt</h3>
+          <p>Tom decides the browser needs a full SPICE transient solver or real-time G-code kerf compensation, writes 500 lines of C++ glue, and feeds it to the models.</p>
+        </div>
+
+        <div class="workflow-arrow"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="workflow-step">
+          <div class="step-badge">Phase 02</div>
+          <div class="step-icon-wrap icon-claude"><i class="fas fa-feather-pointed"></i></div>
+          <h3>The Philosophical Audit</h3>
+          <p>Claude puts on the beret, sips espresso, refactors the memory boundary, proves there are no dangling pointer leaks, and drafts a 3-page explanatory commit.</p>
+        </div>
+
+        <div class="workflow-arrow"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="workflow-step">
+          <div class="step-badge">Phase 03</div>
+          <div class="step-icon-wrap icon-gemini"><i class="fas fa-sparkles"></i></div>
+          <h3>The Cyber Overhaul</h3>
+          <p>Gemini blasts synthwave, slaps on 120 FPS interactive WebGL canvases, ensures the UI looks futuristic, and pushes the changes live before the coffee gets cold.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PhysBox Manifesto -->
+    <section class="about-manifesto reveal">
+      <div class="manifesto-card">
+        <div class="manifesto-content">
+          <span class="manifesto-badge"><i class="fas fa-shield-halved"></i> Our Philosophy</span>
+          <h2>Heavy Engineering Shouldn't Require Heavy Installs</h2>
+          <p>
+            We believe you shouldn't need a $3,000 workstation or a proprietary license key to simulate an analog amplifier, model a multi-link robotic arm, or slice G-code for a laser cutter.
+            PhysBox runs <strong>100% locally in your browser</strong> using WebAssembly, WebGL, and WebSerial. No cloud wait times, no usage quotas, and no subscriptions to get in your way.
+          </p>
+          <div class="manifesto-pills">
+            <div class="m-pill"><i class="fas fa-check-circle"></i> 100% In-Browser WASM</div>
+            <div class="m-pill"><i class="fas fa-check-circle"></i> Zero Cloud Latency</div>
+            <div class="m-pill"><i class="fas fa-check-circle"></i> 81 AI Agent Tools (MCP)</div>
+            <div class="m-pill"><i class="fas fa-check-circle"></i> PPPL-1.0 Open Source</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="about-cta reveal">
+      <h2>Ready to Build Something Incredible?</h2>
+      <p>Dive into our interactive sandboxes or join the open-source community on GitHub.</p>
+      <div class="cta-actions">
+        <a href="index.html#suite" class="btn btn-primary"><i class="fas fa-play"></i> Launch Simulators</a>
+        <a href="https://github.com/physbox-io" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> Explore GitHub</a>
+        <a href="contact.html" class="btn btn-secondary"><i class="fas fa-envelope"></i> Get in Touch</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">physbox<span style="color: var(--primary);">.</span>io</div>
+          <p class="footer-desc">A premium scientific and craft sandbox suite. Open-source, browser-based, high-fidelity
+            simulators for engineers, students, and makers.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Simulators &amp; Tools</h4>
+          <ul>
+            <li><a href="https://volt.physbox.io">PhysBox: Volt</a></li>
+            <li><a href="https://mesh.physbox.io">PhysBox: Mesh</a></li>
+            <li><a href="https://etch.physbox.io">PhysBox: Etch</a></li>
+            <li><a href="https://flux.physbox.io">PhysBox: Flux <span class="footer-soon">soon</span></a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Developer &amp; Learn</h4>
+          <ul>
+            <li><a href="tutorials.html"><i class="fas fa-graduation-cap"></i> Tutorials &amp; Guides</a></li>
+            <li><a href="hardware.html"><i class="fas fa-microchip"></i> HIL &amp; Physical Fabrication</a></li>
+            <li><a href="pro.html"><i class="fas fa-star"></i> PhysBox Pro</a></li>
+            <li><a href="about.html"><i class="fas fa-users"></i> About the Team</a></li>
+            <li><a href="https://github.com/physbox-io" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="license.html"><i class="fas fa-scale-balanced"></i> PPPL License</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter">
+          <h4>Stay Updated</h4>
+          <p>Receive updates about new preset libraries and simulator components.</p>
+          <form class="newsletter-form" id="newsletter-form">
+            <input type="email" placeholder="Enter your email" class="newsletter-input" required
+              id="newsletter-email">
+            <button type="submit" class="newsletter-btn" id="newsletter-submit"><i
+                class="fas fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 physbox.io. Licensed under PPPL-1.0. Built for the modern web.</p>
+        <div class="footer-social">
+          <a href="https://github.com/physbox-io" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+  <script src="auth.js"></script>
+</body>
+
+</html>
+

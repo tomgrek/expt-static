@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="claudeBg" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fff8f0"/>
+      <stop offset="60%" stop-color="#f5e6d3"/>
+      <stop offset="100%" stop-color="#e3caa5"/>
+    </radialGradient>
+    
+    <!-- Beret Gradient -->
+    <linearGradient id="beretGrad" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#2d3748"/>
+      <stop offset="45%" stop-color="#1a202c"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Skin Gradient -->
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fde8d7"/>
+      <stop offset="100%" stop-color="#f5cbab"/>
+    </linearGradient>
+
+    <!-- Scarf / Jacket Gradient -->
+    <linearGradient id="jacketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#854d0e"/>
+      <stop offset="100%" stop-color="#583101"/>
+    </linearGradient>
+
+    <!-- Scarf Gradient -->
+    <linearGradient id="scarfGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#991b1b"/>
+    </linearGradient>
+
+    <!-- Shadow filter -->
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.15"/>
+    </filter>
+    <filter id="badgeGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#d97706" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Circular Base -->
+  <circle cx="200" cy="200" r="190" fill="url(#claudeBg)" stroke="#d4b996" stroke-width="4"/>
+
+  <!-- Subtle French Bistro/Studio ambience circles -->
+  <circle cx="90" cy="90" r="45" fill="#fef3c7" opacity="0.4"/>
+  <circle cx="320" cy="110" r="35" fill="#fed7aa" opacity="0.4"/>
+
+  <!-- Character Group -->
+  <g filter="url(#softShadow)">
+    
+    <!-- Torso / Mariniere Striped Shirt & Jacket -->
+    <!-- Shoulders -->
+    <path d="M90 390 C90 300 130 275 200 275 C270 275 310 300 310 390 Z" fill="#ffffff"/>
+    
+    <!-- Breton Stripes -->
+    <path d="M102 315 C130 295 270 295 298 315 L301 328 C270 308 130 308 99 328 Z" fill="#1e3a8a"/>
+    <path d="M95 342 C125 322 275 322 305 342 L307 355 C275 335 125 335 93 355 Z" fill="#1e3a8a"/>
+    <path d="M91 368 C120 350 280 350 309 368 L310 381 C280 363 120 363 90 381 Z" fill="#1e3a8a"/>
+
+    <!-- Corduroy French Jacket / Cardigan -->
+    <path d="M90 390 C90 310 130 280 155 280 L165 390 Z" fill="url(#jacketGrad)"/>
+    <path d="M310 390 C310 310 270 280 245 280 L235 390 Z" fill="url(#jacketGrad)"/>
+
+    <!-- Red Parisian Scarf -->
+    <path d="M150 275 C170 290 230 290 250 275 C258 295 240 330 220 335 C200 340 180 335 150 275 Z" fill="url(#scarfGrad)"/>
+    <path d="M190 295 L175 365 C175 372 195 375 205 365 L215 295 Z" fill="url(#scarfGrad)" opacity="0.95"/>
+
+    <!-- Neck -->
+    <path d="M175 220 L175 280 C185 285 215 285 225 280 L225 220 Z" fill="#f5cbab"/>
+
+    <!-- Head / Face -->
+    <path d="M140 170 C140 110 260 110 260 170 C260 235 225 255 200 255 C175 255 140 235 140 170 Z" fill="url(#skinGrad)"/>
+
+    <!-- Ears -->
+    <ellipse cx="138" cy="180" rx="10" ry="15" fill="#f5cbab"/>
+    <ellipse cx="262" cy="180" rx="10" ry="15" fill="#f5cbab"/>
+
+    <!-- Wavy Side Hair -->
+    <path d="M138 145 C132 165 132 185 142 200 C140 180 144 160 150 148 Z" fill="#451a03"/>
+    <path d="M262 145 C268 165 268 185 258 200 C260 180 256 160 250 148 Z" fill="#451a03"/>
+
+    <!-- Nose -->
+    <path d="M196 170 Q200 192 205 192 Q209 192 207 185" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Eyes (Thoughtful, refined gaze) -->
+    <ellipse cx="174" cy="168" rx="6" ry="7" fill="#292524"/>
+    <circle cx="172" cy="166" r="2.2" fill="#ffffff"/>
+    <ellipse cx="226" cy="168" rx="6" ry="7" fill="#292524"/>
+    <circle cx="224" cy="166" r="2.2" fill="#ffffff"/>
+
+    <!-- Cultured Eyebrows -->
+    <path d="M162 154 Q175 148 188 153" fill="none" stroke="#451a03" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M212 153 Q225 148 238 154" fill="none" stroke="#451a03" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- Intellectual Round Glasses (Tortoiseshell/Gold) -->
+    <circle cx="174" cy="168" r="18" fill="none" stroke="#b45309" stroke-width="3.5"/>
+    <circle cx="174" cy="168" r="18" fill="#ffffff" fill-opacity="0.12"/>
+    <circle cx="226" cy="168" r="18" fill="none" stroke="#b45309" stroke-width="3.5"/>
+    <circle cx="226" cy="168" r="18" fill="#ffffff" fill-opacity="0.12"/>
+    <path d="M192 168 Q200 163 208 168" fill="none" stroke="#b45309" stroke-width="3.5"/>
+    <line x1="156" y1="166" x2="140" y2="164" stroke="#b45309" stroke-width="3"/>
+    <line x1="244" y1="166" x2="260" y2="164" stroke="#b45309" stroke-width="3"/>
+
+    <!-- Dapper French Mustache -->
+    <path d="M199 210 C188 204 170 206 160 216 C172 217 185 214 198 217 C200 217 202 217 204 217 C217 214 230 217 242 216 C232 206 214 204 203 210 Q201 211 199 210 Z" fill="#381907"/>
+    <!-- Small French Goatee/Soul Patch -->
+    <path d="M195 232 Q200 240 205 232 Z" fill="#381907"/>
+
+    <!-- Warm Subtle Smile -->
+    <path d="M190 224 Q200 229 210 224" fill="none" stroke="#9a3412" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- THE FRENCH BERET (Iconic tilted wool beret) -->
+    <!-- Beret Crown / Tilted Volume -->
+    <path d="M100 145 C90 100 170 50 265 65 C325 75 330 115 295 145 C275 160 140 165 100 145 Z" fill="url(#beretGrad)"/>
+    <!-- Beret Fold Highlight / Shadow Crease -->
+    <path d="M120 135 C170 85 280 90 300 128 C265 145 160 148 120 135 Z" fill="#334155" opacity="0.4"/>
+    <!-- Beret Rim / Headband band -->
+    <path d="M135 145 C155 132 245 132 268 145 C250 154 150 154 135 145 Z" fill="#0f172a"/>
+    <!-- The Beret Cabillou (the little antenna stalk on top) -->
+    <path d="M210 60 C210 50 214 46 215 42" fill="none" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Coffee / Espresso Cup Floating Badge -->
+    <g transform="translate(285, 260)" filter="url(#badgeGlow)">
+      <circle cx="20" cy="20" r="24" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+      <!-- Espresso Cup -->
+      <path d="M10 18 L12 28 C13 32 27 32 28 28 L30 18 Z" fill="#78350f"/>
+      <path d="M30 20 C34 20 34 26 30 26" fill="none" stroke="#78350f" stroke-width="2.5"/>
+      <!-- Saucer -->
+      <line x1="8" y1="32" x2="32" y2="32" stroke="#78350f" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Steam -->
+      <path d="M16 14 Q18 10 16 7" fill="none" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M24 14 Q22 10 24 7" fill="none" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+
+    <!-- Sparkle / AI Genius Glyph -->
+    <g transform="translate(80, 110)">
+      <path d="M15 0 Q15 15 30 15 Q15 15 15 30 Q15 15 0 15 Q15 15 15 0 Z" fill="#d97706"/>
+    </g>
+    <g transform="translate(305, 75) scale(0.6)">
+      <path d="M15 0 Q15 15 30 15 Q15 15 15 30 Q15 15 0 15 Q15 15 15 0 Z" fill="#b45309"/>
+    </g>
+
+  </g>
+</svg>
+
