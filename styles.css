@@ -360,9 +360,51 @@ nav a.active::after {
   display: flex;
   justify-content: center;
   gap: 0.85rem;
+  flex-wrap: wrap;
 }
 
 .btn-hero-mesh {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+}
+.btn-hero-mesh:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+}
+
+.btn-hero-volt {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+}
+.btn-hero-volt:hover {
+  background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.45);
+}
+
+.btn-hero-etch {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+}
+.btn-hero-etch:hover {
+  background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.45);
+}
+
+.btn-hero-flux {
+  background: #fdf2f8;
+  color: #be185d !important;
+  border: 1px solid rgba(219, 39, 119, 0.25);
+  cursor: default;
+  opacity: 0.9;
+}
+
+/* ==========================================================================
    Interactive Live Solver Console Stage (Hero Stage)
    ========================================================================== */
 .hero-stage {
