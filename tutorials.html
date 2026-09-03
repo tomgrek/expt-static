@@ -313,14 +313,14 @@
           </section>
 
           <section id="section-volt-uart" class="tutorial-section-block">
-            <h2><i class="fas fa-plug"></i> 2. WebSerial UART Streaming & Buffer Queue Management</h2>
+            <h2><i class="fas fa-plug"></i> 2. WebSerial UART Streaming & Buffer Management</h2>
             <p>
-              Browsers execute JavaScript on an asynchronous event loop, which creates micro-jitter in serial read cycles. To prevent hardware starvation and maintain sub-millisecond physical timing accuracy, Volt utilizes a <strong>lookahead queue buffer</strong>:
+              To maintain smooth hardware communication over the browser's asynchronous event loop, Volt synchronizes I/O using a lookahead buffer:
             </p>
             <ul>
-              <li><strong>Step Time:</strong> Solves circuit matrix state in <strong>40ms integration steps</strong>.</li>
-              <li><strong>Queue Target:</strong> Buffers up to <strong>240ms of future lookahead steps</strong> in WebWorker memory.</li>
-              <li><strong>High-Speed Baud:</strong> Communicates over WebSerial at <strong>460,800 baud</strong> using packed binary arrays (`hil_batch`).</li>
+              <li><strong>Integration Steps:</strong> Computes circuit matrix states in regular discrete time intervals.</li>
+              <li><strong>Queue Buffering:</strong> Maintains lookahead buffer steps in worker memory to absorb serial jitter.</li>
+              <li><strong>Serial Protocol:</strong> Streams packed binary frames (`hil_batch`) over WebSerial at 460,800 baud.</li>
             </ul>
           </section>
 

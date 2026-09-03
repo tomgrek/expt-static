@@ -113,13 +113,13 @@
           <div class="spec-cards-grid">
             <div class="spec-card">
               <span class="spec-icon"><i class="fas fa-tachometer-alt"></i></span>
-              <h4>Lookahead Queue Buffer</h4>
-              <p>Maintains a 40ms simulation step ahead of real time with a 240ms target depth to absorb serial jitter and eliminate pin starvation.</p>
+              <h4>Lookahead Buffer</h4>
+              <p>Buffers simulation steps to absorb serial transmission jitter and maintain synchronized hardware I/O timing.</p>
             </div>
             <div class="spec-card">
               <span class="spec-icon"><i class="fas fa-wave-square"></i></span>
-              <h4>Sub-Millisecond Triggers</h4>
-              <p>Derives sub-millisecond digital logic thresholds dynamically based on analog rail voltages computed in WASM.</p>
+              <h4>Dynamic Logic Thresholds</h4>
+              <p>Computes digital logic switching thresholds in real time based on simulated analog rail voltages.</p>
             </div>
             <div class="spec-card">
               <span class="spec-icon"><i class="fas fa-volume-high"></i></span>

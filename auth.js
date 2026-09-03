@@ -13,6 +13,7 @@
   var AUTH_TOKEN_KEY = 'physbox_auth_token';
   var USER_KEY = 'physbox_user_profile';
   var GSI_SRC = 'https://accounts.google.com/gsi/client';
+  var API_URL_KEY = 'physbox_api_url';
 
   /**
    * The OAuth Web client id for the PhysBox suite. Public by construction — it
@@ -27,6 +28,22 @@
 
   function getApiBaseUrl() {
     if (global.PHYSBOX_API_URL) return global.PHYSBOX_API_URL;
+
+    // Development override, for when port 3000 is not this project's API — it
+    // is a popular port, and whatever else answers on it fails in confusing
+    // ways rather than silently. `?api=<url>` selects an API and remembers it
+    // across page loads; `?api=` on its own clears it and restores the
+    // defaults below. Inert unless someone types the parameter.
+    try {
+      var match = /[?&]api=([^&]*)/.exec(global.location.search);
+      if (match) {
+        var chosen = decodeURIComponent(match[1]).replace(/\/+$/, '');
+        if (chosen) localStorage.setItem(API_URL_KEY, chosen);
+        else localStorage.removeItem(API_URL_KEY);
+      }
+      var saved = localStorage.getItem(API_URL_KEY);
+      if (saved) return saved;
+    } catch (e) { /* storage unavailable: fall through to the defaults */ }
 
     var host = global.location.hostname;
     if (host !== 'localhost' && host !== '127.0.0.1') return REMOTE_API;
