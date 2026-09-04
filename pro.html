@@ -215,6 +215,95 @@
       color: var(--text-secondary);
       margin-top: 1.25rem;
     }
+
+    /* Perpetual fallback guarantee card */
+    .pro-perpetual-card {
+      margin-top: 3.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.25rem;
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.75rem;
+      align-items: flex-start;
+      text-align: left;
+    }
+    @media (max-width: 768px) {
+      .pro-perpetual-card { grid-template-columns: 1fr; gap: 1.25rem; padding: 1.75rem 1.25rem; }
+    }
+    .pro-perpetual-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .pro-perpetual-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .pro-perpetual-title {
+      font-family: var(--font-header);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+      margin: 0;
+    }
+    .pro-perpetual-badge {
+      font-family: var(--font-header);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.28rem 0.65rem;
+      border-radius: 999px;
+      background: var(--circuit-light);
+      color: var(--circuit-color);
+      font-weight: 700;
+    }
+    .pro-perpetual-lead {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+    .pro-perpetual-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .pro-perpetual-col {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .pro-perpetual-col h4 {
+      font-family: var(--font-header);
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .pro-perpetual-col p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
   </style>
 </head>
 
@@ -460,6 +549,30 @@
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- Perpetual Fallback License Guarantee -->
+      <div class="pro-perpetual-card reveal">
+        <span class="pro-perpetual-icon"><i class="fa-solid fa-infinity"></i></span>
+        <div class="pro-perpetual-content">
+          <div class="pro-perpetual-header">
+            <h3 class="pro-perpetual-title">Perpetual Desktop License &mdash; No Ransomware SaaS</h3>
+            <span class="pro-perpetual-badge"><i class="fa-solid fa-shield-check"></i> Perpetual Fallback</span>
+          </div>
+          <p class="pro-perpetual-lead">
+            We believe tools you rely on shouldn't expire if your subscription stops. PhysBox Pro uses a transparent perpetual fallback license model: you pay while you want continuous updates and cloud infrastructure, but you own the software you download forever.
+          </p>
+          <div class="pro-perpetual-grid">
+            <div class="pro-perpetual-col">
+              <h4><i class="fa-solid fa-circle-check" style="color: var(--circuit-color);"></i> While Your License is Active</h4>
+              <p>Unlimited downloads of every new Linux and Windows desktop build as soon as released, automatic updates, cloud preset syncing across web simulators, and live cross-device machine telemetry.</p>
+            </div>
+            <div class="pro-perpetual-col">
+              <h4><i class="fa-solid fa-unlock-keyhole" style="color: var(--primary);"></i> If Your License Ever Lapses</h4>
+              <p>Keep running your downloaded desktop builds <strong>forever</strong>. Binaries are 100% DRM-free and fully functional offline with no phone-home kill switches. Only cloud sync and new version updates pause.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="pledge-ctas reveal" style="margin-top: 2.5rem; justify-content: center; display: flex; gap: 1rem; flex-wrap: wrap;">

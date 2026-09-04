@@ -289,12 +289,12 @@
         <span class="gate-lock"><i class="fas fa-lock"></i></span>
         <h1 class="gate-title">Members only</h1>
         <p class="gate-desc">
-          The <strong>PhysBox Native</strong> desktop app is available to signed-in PhysBox accounts. Sign in with Google &mdash; the same account you use in Volt, Mesh, Etch and Flux &mdash; to get the Linux and Windows builds.
+          The <strong>PhysBox Native</strong> desktop app is available with PhysBox Pro. Pro includes unlimited downloads of all current releases and updates while active &mdash; plus <strong>perpetual fallback rights</strong>: any build you download is yours to keep and run forever offline without DRM.
         </p>
         <div class="gate-btn-wrap" id="google-signin-button"></div>
         <p class="gate-error" id="gate-error" role="alert"></p>
         <p style="margin-top: 1.5rem; font-size: 0.87rem; color: var(--text-muted);">
-          Not sure what you get? <a href="pro.html" style="color: var(--primary); font-weight: 600;">Read about PhysBox Pro</a>.
+          Not sure what you get? <a href="pro.html" style="color: var(--primary); font-weight: 600;">Read about PhysBox Pro &amp; Perpetual Licensing</a>.
         </p>
       </div>
 
@@ -344,7 +344,7 @@
             </a>
             <p class="download-note" id="note-windows"></p>
             <p class="download-req">
-              Windows 10 or 11, x64 with <strong>AVX2</strong> (Haswell, 2013 or newer). TLS is handled by Schannel, so there is nothing else to install.
+              Windows 10 or 11, x64 with <strong>AVX2</strong> (Haswell, 2013 or newer).
             </p>
           </div>
         </div>
@@ -367,6 +367,87 @@
             Sign in from the app's account menu to pick up your cloud saves. Copilot keys and the theme live in
             <code style="font-family: var(--font-mono); font-size: 0.85em;">%APPDATA%\physbox-native</code> on Windows and
             <code style="font-family: var(--font-mono); font-size: 0.85em;">~/.config/physbox-native</code> on Linux.
+          </p>
+
+          <h3 style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+            <i class="fas fa-plug"></i> Connect an AI agent (MCP)
+          </h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem;">
+            <strong>PhysBox: MCP</strong> is the companion Model Context Protocol server. It runs locally, relays JSON
+            over a WebSocket on port <code style="font-family: var(--font-mono); font-size: 0.85em;">3142</code>, and lets an
+            agent drive Mesh, Volt and Etch directly &mdash; no browser automation. Install it once:
+          </p>
+          <pre><code>pip install physbox-mcp</code></pre>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem;">
+            Then point your client at it. Open PhysBox (desktop or web) before starting a session &mdash; it registers with the
+            relay as soon as it loads.
+          </p>
+
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem;">
+            <strong>Claude</strong> &mdash; for Claude Code, run
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">claude mcp add physbox-mcp -- physbox-mcp --stdio</code>,
+            or write the block below to <code style="font-family: var(--font-mono); font-size: 0.85em;">.mcp.json</code> in your project root.
+            For Claude Desktop, put the same <code style="font-family: var(--font-mono); font-size: 0.85em;">mcpServers</code> block in
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">%APPDATA%\Claude\claude_desktop_config.json</code> (Windows) or
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">~/Library/Application Support/Claude/claude_desktop_config.json</code> (macOS).
+          </p>
+          <pre><code>{
+  "mcpServers": {
+    "physbox-mcp": {
+      "type": "stdio",
+      "command": "physbox-mcp",
+      "args": ["--stdio"]
+    }
+  }
+}</code></pre>
+
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem;">
+            <strong>VS Code</strong> &mdash; add <code style="font-family: var(--font-mono); font-size: 0.85em;">.vscode/mcp.json</code> to your
+            workspace (VS Code uses <code style="font-family: var(--font-mono); font-size: 0.85em;">servers</code>, not
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">mcpServers</code>), then start the server from the
+            <em>Start</em> lens above the entry and pick it up in Copilot Chat's agent mode:
+          </p>
+          <pre><code>{
+  "servers": {
+    "physbox-mcp": {
+      "type": "stdio",
+      "command": "physbox-mcp",
+      "args": ["--stdio"]
+    }
+  }
+}</code></pre>
+
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem;">
+            <strong>Antigravity</strong> &mdash; add the same server to
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">~/.gemini/antigravity/mcp_config.json</code>, then restart the IDE
+            (or reload the agent chat session) to register the tools. If you run the server inside WSL, launch it through
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">wsl.exe</code> and replace
+            <code style="font-family: var(--font-mono); font-size: 0.85em;">&lt;your-wsl-distro&gt;</code> with your distribution name:
+          </p>
+          <pre><code>{
+  "mcpServers": {
+    "physbox-mcp": {
+      "command": "C:\\Windows\\system32\\wsl.exe",
+      "args": ["-d", "&lt;your-wsl-distro&gt;", "physbox-mcp", "--stdio"]
+    }
+  }
+}</code></pre>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin: 0;">
+            On Windows, Antigravity reads <code style="font-family: var(--font-mono); font-size: 0.85em;">%USERPROFILE%\.gemini\config\mcp_config.json</code>,
+            which is often write-restricted. Hard-link it to the writable copy once, in PowerShell:
+          </p>
+          <pre style="margin-top: 1rem;"><code>Remove-Item -Path "$env:USERPROFILE\.gemini\config\mcp_config.json" -Force -ErrorAction SilentlyContinue
+New-Item -ItemType HardLink -Path "$env:USERPROFILE\.gemini\config\mcp_config.json" `
+         -Target "$env:USERPROFILE\.gemini\antigravity\mcp_config.json"</code></pre>
+        </div>
+
+        <div class="install-block" style="margin-top: 1.5rem;">
+          <h3><i class="fas fa-infinity" style="color: var(--primary);"></i> License &amp; Perpetual Fallback Rights</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 0.85rem;">
+            <strong>Unlimited Downloads &amp; Active Updates:</strong> While your PhysBox Pro subscription is active, you receive unlimited downloads of all current releases, hotfixes, and new features across Linux and Windows.
+          </p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin: 0;">
+            <strong>Perpetual Fallback Guarantee:</strong> If your subscription ever ends or lapses, any desktop build downloaded during your active term remains <strong>yours to keep and run forever</strong> without time bombs, license checks, or DRM. Only future release downloads and cloud sync pause.
           </p>
         </div>
       </div>
