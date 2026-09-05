@@ -1210,4 +1210,124 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==========================================================================
+  // 10. Hand-Drawn Tiger Margin Linework Controller (Experimental)
+  // ==========================================================================
+  const tigerControlPill = document.getElementById('tiger-control-pill');
+  if (tigerControlPill) {
+    const tigerBtns = tigerControlPill.querySelectorAll('.tiger-btn-mode');
+    const savedTigerMode = localStorage.getItem('physbox_tiger_style') || 'vivid';
+
+    const applyTigerMode = (mode) => {
+      if (mode === 'vivid') {
+        document.body.removeAttribute('data-tiger-style');
+      } else {
+        document.body.setAttribute('data-tiger-style', mode);
+      }
+      tigerBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+      });
+      localStorage.setItem('physbox_tiger_style', mode);
+    };
+
+    applyTigerMode(savedTigerMode);
+
+    tigerBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyTigerMode(btn.dataset.mode);
+      });
+    });
+
+    // Subtle natural parallax shift for margin illustrations
+    const tigerWings = document.querySelectorAll('.tiger-margin-wing');
+    if (tigerWings.length > 0 && window.matchMedia('(min-width: 1261px)').matches) {
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const scrollY = window.scrollY;
+            tigerWings.forEach((wing, idx) => {
+              // Gentle alternate vertical offset based on section scroll
+              const factor = (idx % 2 === 0 ? 0.035 : -0.035);
+              const card = wing.querySelector('.tiger-card');
+              if (card) {
+                const rect = wing.getBoundingClientRect();
+                const offset = (window.innerHeight / 2 - rect.top) * factor;
+                card.style.transform = `translateY(${Math.max(-25, Math.min(25, offset))}px)`;
+              }
+            });
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+  }
+
+  // ==========================================================================
+  // 11. Mobile Navigation Hamburger & Drawer Controller
+  // ==========================================================================
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+  const mobileNavClose = document.getElementById('mobile-nav-close');
+  const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
+
+  if (mobileMenuBtn && mobileNavDrawer) {
+    const openDrawer = () => {
+      mobileNavDrawer.classList.add('is-open');
+      mobileMenuBtn.classList.add('is-open');
+      mobileNavDrawer.setAttribute('aria-hidden', 'false');
+      mobileMenuBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeDrawer = () => {
+      mobileNavDrawer.classList.remove('is-open');
+      mobileMenuBtn.classList.remove('is-open');
+      mobileNavDrawer.setAttribute('aria-hidden', 'true');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = mobileNavDrawer.classList.contains('is-open');
+      if (isOpen) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    });
+
+    if (mobileNavClose) {
+      mobileNavClose.addEventListener('click', closeDrawer);
+    }
+
+    if (mobileNavBackdrop) {
+      mobileNavBackdrop.addEventListener('click', closeDrawer);
+    }
+
+    // Close on any drawer link click
+    const drawerLinks = mobileNavDrawer.querySelectorAll('a');
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNavDrawer.classList.contains('is-open')) {
+        closeDrawer();
+      }
+    });
+
+    // Auto-close if resized to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && mobileNavDrawer.classList.contains('is-open')) {
+        closeDrawer();
+      }
+    }, { passive: true });
+  }
+
 });
+
