@@ -332,11 +332,56 @@
           <li><a href="about.html" id="nav-link-about-pro">About</a></li>
           <li><a href="contact.html" id="nav-link-contact-pro">Contact</a></li>
           <li id="nav-account"></li>
-          <li><a href="download.html" class="nav-cta" id="nav-btn-download-pro"><i class="fas fa-download"></i> Download</a></li>
-        </ul>
       </nav>
+      <!-- Mobile Hamburger Toggle Button -->
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+    <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+    <div class="mobile-nav-panel">
+      <div class="mobile-nav-header">
+        <span class="mobile-nav-brand">Navigation</span>
+        <button type="button" class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">
+          <i class="fas fa-xmark"></i>
+        </button>
+      </div>
+      <div class="mobile-nav-scroll">
+        <ul class="mobile-nav-list">
+          <li class="mobile-nav-section-title">Pro Capabilities</li>
+          <li><a href="#cloud-saves" class="mobile-nav-link" data-close-drawer><i class="fas fa-cloud"></i> Cloud Saves & Revisions</a></li>
+          <li><a href="#job-monitoring" class="mobile-nav-link" data-close-drawer><i class="fas fa-tower-broadcast"></i> Live Monitoring</a></li>
+          <li><a href="#job-history" class="mobile-nav-link" data-close-drawer><i class="fas fa-clock-rotate-left"></i> Run Archive & MCP Read</a></li>
+          <li><a href="#native-app" class="mobile-nav-link" data-close-drawer><i class="fas fa-cube"></i> Native Desktop App</a></li>
+
+          <li class="mobile-nav-section-title">Documentation & Guides</li>
+          <li><a href="index.html#suite" class="mobile-nav-link"><i class="fas fa-layer-group"></i> Simulators</a></li>
+          <li><a href="hardware.html" class="mobile-nav-link"><i class="fas fa-microchip"></i> HIL & Fabrication</a></li>
+          <li><a href="tutorials.html" class="mobile-nav-link"><i class="fas fa-graduation-cap"></i> Tutorials</a></li>
+          <li><a href="index.html#ai-models" class="mobile-nav-link"><i class="fas fa-robot"></i> AI Models</a></li>
+          <li><a href="index.html#mcp" class="mobile-nav-link"><i class="fas fa-plug"></i> 81 Native MCP Tools</a></li>
+
+          <li class="mobile-nav-section-title">Account & Suite</li>
+          <li><a href="pro.html" class="mobile-nav-link active"><i class="fas fa-star" style="color: var(--primary);"></i> PhysBox Pro</a></li>
+          <li><a href="download.html" class="mobile-nav-link"><i class="fas fa-download"></i> Downloads</a></li>
+          <li><a href="history.html" class="mobile-nav-link"><i class="fas fa-clock-rotate-left"></i> Job History</a></li>
+          <li><a href="about.html" class="mobile-nav-link"><i class="fas fa-users"></i> About</a></li>
+          <li><a href="contact.html" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="mobile-nav-footer">
+          <a href="download.html" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            <i class="fas fa-download"></i> Download Builds
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero deepdive-hero">

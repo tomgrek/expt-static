@@ -3978,26 +3978,10 @@ body[data-tiger-style="off"] .tiger-margin-wing {
   display: none !important;
 }
 
-/* Margin Wing Component */
-.tiger-margin-wing {
-  position: absolute;
-  width: clamp(210px, 16vw, 290px);
-  z-index: 2;
-  pointer-events: auto;
-  user-select: none;
-  opacity: var(--tiger-opacity);
-  filter: var(--tiger-filter);
-  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
-}
-
-.tiger-margin-wing.tiger-margin-left {
-  right: calc(50% + 615px);
-  top: 155px;
-}
-
-.tiger-margin-wing.tiger-margin-right {
-  left: calc(50% + 615px);
-  top: 155px;
+/* Mobile-First: Margin Wing Component & Controls Hidden by Default */
+.tiger-margin-wing,
+.tiger-control-pill {
+  display: none !important;
 }
 
 /* Card framing */
@@ -4170,7 +4154,6 @@ body[data-tiger-style="off"] .tiger-margin-wing {
   bottom: 22px;
   left: 22px;
   z-index: 99;
-  display: inline-flex;
   align-items: center;
   gap: 8px;
   background: rgba(255, 255, 255, 0.92);
@@ -4236,8 +4219,36 @@ body[data-tiger-style="off"] .tiger-margin-wing {
   box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
 }
 
-/* Responsive Handling */
-@media (max-width: 1480px) {
+/* Wide Desktop Display (>1260px) */
+@media (min-width: 1261px) {
+  .tiger-margin-wing {
+    display: block !important;
+    position: absolute;
+    width: clamp(210px, 16vw, 290px);
+    z-index: 2;
+    pointer-events: auto;
+    user-select: none;
+    opacity: var(--tiger-opacity);
+    filter: var(--tiger-filter);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  }
+
+  .tiger-margin-wing.tiger-margin-left {
+    right: calc(50% + 615px);
+    top: 155px;
+  }
+
+  .tiger-margin-wing.tiger-margin-right {
+    left: calc(50% + 615px);
+    top: 155px;
+  }
+
+  .tiger-control-pill {
+    display: inline-flex !important;
+  }
+}
+
+@media (min-width: 1261px) and (max-width: 1480px) {
   .tiger-margin-wing {
     width: clamp(180px, 14vw, 240px);
     opacity: calc(var(--tiger-opacity) * 0.85);
@@ -4261,6 +4272,19 @@ body[data-tiger-style="off"] .tiger-margin-wing {
     overflow: hidden !important;
     position: absolute !important;
     left: -9999px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .circuit-tiger-bg,
+  .physics-tiger-bg {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-navbar-tiger {
+    display: none !important;
   }
 }
 
