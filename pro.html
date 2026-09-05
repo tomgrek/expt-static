@@ -171,6 +171,8 @@
     .pro-status.running { background: var(--circuit-light); color: var(--circuit-color); }
     .pro-status.idle { background: var(--bg-surface-subtle); color: var(--text-muted); }
     .pro-status.done { background: var(--physics-light); color: var(--physics-color); }
+    /* A failed run, in the history panel below. */
+    .pro-status.failed { background: #fee4e2; color: #b42318; }
 
     .pro-table-wrap { overflow-x: auto; }
     .pro-table {
@@ -324,6 +326,7 @@
           <li><a href="index.html#suite" id="nav-link-main-suite">Main Suite</a></li>
           <li><a href="#cloud-saves" id="nav-link-cloud-saves">Cloud Saves</a></li>
           <li><a href="#job-monitoring" id="nav-link-job-monitoring">Job Monitoring</a></li>
+          <li><a href="#job-history" id="nav-link-job-history">Job History</a></li>
           <li><a href="#native-app" id="nav-link-native">Native App</a></li>
           <li><a href="hardware.html" id="nav-link-hardware">HIL &amp; Fabrication</a></li>
           <li><a href="about.html" id="nav-link-about-pro">About</a></li>
@@ -346,7 +349,7 @@
         The simulators stay free.<br><span class="gradient-text">Pro levels up your workflow.</span>
       </h1>
       <p class="hero-subtitle reveal delay-200">
-        A single PhysBox account gives you <strong>cloud saves</strong> across Volt, Mesh, Etch and Flux, <strong>cross-device monitoring</strong> of fabrication jobs while they run, and <strong>PhysBox Native</strong> &mdash; the GPU-accelerated C++20 desktop build of Mesh for Linux and Windows.
+        A single PhysBox account gives you <strong>cloud saves with revision history</strong> across Volt, Mesh, Etch and Flux, an archive of <strong>every job your machines have run</strong> &mdash; searchable by material, and readable by your own AI agent &mdash; and <strong>PhysBox Native</strong>, the GPU-accelerated C++20 desktop build of Mesh for Linux and Windows.
       </p>
       <div class="hero-ctas reveal delay-300">
         <a href="download.html" class="btn btn-primary" id="hero-btn-download"><i class="fas fa-download"></i> Get the Native App</a>
@@ -367,7 +370,7 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">What Pro Adds</span>
-        <h2 class="section-title">Three things a browser tab cannot do on its own</h2>
+        <h2 class="section-title">Four things a browser tab cannot do on its own</h2>
         <p class="section-subtitle">Everything PhysBox simulates stays open-source and free in the browser. Pro is the account layer around it: your scenes follow you, your machines report back, and your workstation's GPU gets used properly.</p>
       </div>
 
@@ -379,8 +382,13 @@
           <p class="pro-benefit-body">
             Scenes, netlists, toolpaths and parameter sets are stored against your account rather than the browser profile that happened to make them. Sign in on another machine and the same presets are already in the list &mdash; no export step, no <code>~/Downloads</code> full of near-identical JSON, no losing a lab's worth of tuning to a cleared site-data prompt.
           </p>
+          <p class="pro-benefit-body">
+            Pro goes further than the presets you remember to save: the document you are <em>working on</em> is auto-saved as you go, with revisions kept behind it. Close the tab mid-thought and it is there when you come back &mdash; and if you preferred it how it was an hour ago, that version is still on the list.
+          </p>
           <ul class="pro-check-list">
-            <li><i class="fas fa-check"></i> <span>Presets and parameters sync across <strong>Volt, Mesh, Etch and Flux</strong> under one account.</span></li>
+            <li><i class="fas fa-check"></i> <span>The open document auto-saves on its own, across <strong>Volt, Mesh and Etch</strong>.</span></li>
+            <li><i class="fas fa-check"></i> <span><strong>Revision history</strong> &mdash; roll back to an earlier state, and roll the rollback back.</span></li>
+            <li><i class="fas fa-check"></i> <span>Open on two machines and you are <strong>told</strong>, rather than one silently overwriting the other.</span></li>
             <li><i class="fas fa-check"></i> <span>Saves are keyed per app, so a Mesh scene and an Etch job never collide.</span></li>
             <li><i class="fas fa-check"></i> <span>Local work keeps working offline &mdash; the cloud copy reconciles when you sign back in.</span></li>
             <li><i class="fas fa-check"></i> <span>The same library is visible to the native desktop app.</span></li>
@@ -456,6 +464,9 @@
           <p class="pro-benefit-body">
             The machine in the workshop is driven over WebSerial by whatever browser or desktop app is plugged into it &mdash; but with Pro that session also posts telemetry to your account. Progress, position, feed rate, spindle speed and errors are readable from any other device you are signed in on, so you can leave a four-hour engrave running and check it from your phone rather than the stool next to it.
           </p>
+          <p class="pro-benefit-body">
+            Driving the machine is not gated &mdash; that works signed out, over WebSerial, as it always has. What Pro adds is being somewhere else while it runs, and keeping the run afterwards.
+          </p>
           <ul class="pro-check-list">
             <li><i class="fas fa-check"></i> <span>Live status, line progress and XYZ position from laser, CNC and 3D print jobs.</span></li>
             <li><i class="fas fa-check"></i> <span>Several machines at once, each reporting under its own device and app id.</span></li>
@@ -465,10 +476,60 @@
         </div>
       </div>
 
-      <!-- 3. Native App -->
-      <div class="pro-benefit-row reveal" id="native-app">
+      <!-- 3. Job History -->
+      <div class="pro-benefit-row reverse reveal" id="job-history">
+        <div class="pro-benefit-media">
+          <div class="pro-panel">
+            <div class="pro-panel-title"><i class="fas fa-clock-rotate-left"></i> Job history</div>
+            <div class="pro-device-row">
+              <span class="pro-device-icon"><i class="fas fa-bolt"></i></span>
+              <div class="pro-device-meta">
+                <div class="pro-device-name">walnut_tray &mdash; 6 mm walnut, 82%, 3 passes</div>
+                <div class="pro-device-sub">Etch &middot; 14 Mar &middot; 41 min</div>
+              </div>
+              <span class="pro-status done">Completed</span>
+            </div>
+            <div class="pro-device-row">
+              <span class="pro-device-icon"><i class="fas fa-triangle-exclamation"></i></span>
+              <div class="pro-device-meta">
+                <div class="pro-device-name">enclosure_panels &mdash; ALARM:3 at line 4,118</div>
+                <div class="pro-device-sub">Etch &middot; 12 Mar &middot; stopped at 44%</div>
+              </div>
+              <span class="pro-status failed">Error</span>
+            </div>
+            <div class="pro-device-row">
+              <span class="pro-device-icon"><i class="fas fa-screwdriver-wrench"></i></span>
+              <div class="pro-device-meta">
+                <div class="pro-device-name">jig_plate &mdash; 12 mm ply, 1.2 mm stepdown</div>
+                <div class="pro-device-sub">Etch &middot; 9 Mar &middot; 2 h 07 min</div>
+              </div>
+              <span class="pro-status done">Completed</span>
+            </div>
+          </div>
+        </div>
         <div class="deepdive-content">
           <span class="pro-benefit-num">03</span>
+          <h3 class="pro-benefit-title"><i class="fas fa-clock-rotate-left" style="color: var(--primary);"></i> Job History &amp; Agent Access</h3>
+          <p class="pro-benefit-body">
+            Live telemetry is one row per machine, overwritten several times a second &mdash; so without Pro, every finished job is destroyed by the next one. Pro archives each run instead: how long it took, how far it got, the feed and spindle trace, the line an alarm stopped it on, and the material and power it was cut at.
+          </p>
+          <p class="pro-benefit-body">
+            Which means <em>&ldquo;what did I cut that walnut at in March&rdquo;</em> becomes a question with an answer &mdash; inside the apps, on your <a href="history.html">history dashboard</a>, or asked of your own AI agent.
+          </p>
+          <ul class="pro-check-list">
+            <li><i class="fas fa-check"></i> <span>Every run kept, across every app and every machine on the account.</span></li>
+            <li><i class="fas fa-check"></i> <span>Search by <strong>material</strong>, job or document &mdash; and filter by date.</span></li>
+            <li><i class="fas fa-check"></i> <span>The settings each job was actually cut at, recorded automatically.</span></li>
+            <li><i class="fas fa-check"></i> <span>Jobs a Tekno Box ran on its own are archived too, with no browser attached.</span></li>
+            <li><i class="fas fa-check"></i> <span>A read-only token lets your agent query it over <strong>MCP</strong> with nothing open. It cannot drive a machine.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4. Native App -->
+      <div class="pro-benefit-row reveal" id="native-app">
+        <div class="deepdive-content">
+          <span class="pro-benefit-num">04</span>
           <h3 class="pro-benefit-title"><i class="fas fa-display" style="color: var(--physics-color);"></i> PhysBox Native</h3>
           <p class="pro-benefit-body">
             The desktop build of Mesh: a C++20 application running MuJoCo natively against a Dear ImGui interface, with a GPU-accelerated 3D viewport. It is a reimplementation rather than a wrapper &mdash; no browser, no WebAssembly, no 4GB heap ceiling &mdash; and it shares its data with the web app, so a scene compiled here is byte-for-byte the scene the web app compiles.
@@ -528,9 +589,29 @@
               <td><i class="fas fa-check pro-yes"></i> Cloud saves, synced across devices</td>
             </tr>
             <tr>
+              <td>Auto-saving the document you are working on</td>
+              <td><i class="fas fa-xmark pro-no"></i> Not saved anywhere</td>
+              <td><i class="fas fa-check pro-yes"></i> Auto-saved, with revision history</td>
+            </tr>
+            <tr>
+              <td>Driving a machine over WebSerial</td>
+              <td><i class="fas fa-check pro-yes"></i> Full control</td>
+              <td><i class="fas fa-check pro-yes"></i> Full control</td>
+            </tr>
+            <tr>
               <td>Monitoring a running machine</td>
               <td>Only on the device that is driving it</td>
               <td><i class="fas fa-check pro-yes"></i> From any signed-in device</td>
+            </tr>
+            <tr>
+              <td>History of finished jobs</td>
+              <td><i class="fas fa-xmark pro-no"></i> Overwritten by the next run</td>
+              <td><i class="fas fa-check pro-yes"></i> Every run kept, with its settings and trace</td>
+            </tr>
+            <tr>
+              <td>Agent access to your workshop history</td>
+              <td><i class="fas fa-xmark pro-no"></i> Nothing recorded to read</td>
+              <td><i class="fas fa-check pro-yes"></i> Read-only MCP token</td>
             </tr>
             <tr>
               <td>PhysBox Native desktop app</td>
@@ -606,6 +687,7 @@
           <h4>PhysBox Pro</h4>
           <ul>
             <li><a href="pro.html#cloud-saves">Cloud Saves</a></li>
+            <li><a href="pro.html#job-history">Job History</a></li>
             <li><a href="pro.html#job-monitoring">Job Monitoring</a></li>
             <li><a href="pro.html#native-app">Native Desktop App</a></li>
             <li><a href="download.html"><i class="fas fa-download"></i> Downloads</a></li>

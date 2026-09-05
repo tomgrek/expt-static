@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job History | PhysBox Pro</title>
+
+  <!-- Gated: only useful to a signed-in account, so it is kept out of search
+       results rather than indexed as an empty sign-in wall. Same reasoning as
+       download.html, and like that page it is deliberately absent from sitemap.xml. -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://physbox.io/history.html">
+  <meta name="description" content="Every job your machines have run, across Volt, Mesh and Etch — with the settings each one was cut at, and live status for anything running now.">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .gate-section { padding: 8rem 0 5rem; }
+
+    /* --- Shared gate card, matching download.html --- */
+    .gate-card {
+      max-width: 520px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-xl);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+    .gate-lock {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .gate-title {
+      font-family: var(--font-header);
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 0.9rem;
+    }
+    .gate-desc { color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+    .gate-btn-wrap { display: flex; justify-content: center; }
+    .gate-error {
+      display: none;
+      margin-top: 1rem;
+      color: #b42318;
+      font-size: 0.9rem;
+    }
+
+    /* --- Page furniture --- */
+    .hist-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .hist-title {
+      font-family: var(--font-header);
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+    }
+    .hist-sub { color: var(--text-secondary); margin-top: 0.35rem; }
+
+    .hist-section-title {
+      font-family: var(--font-header);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      margin: 2.5rem 0 1rem;
+    }
+
+    /* --- Live strip --- */
+    .live-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+      gap: 1rem;
+    }
+    .live-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-lg);
+      min-width: 0;
+    }
+    .live-top { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+    .live-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      overflow-wrap: anywhere;
+      flex: 1;
+      min-width: 0;
+    }
+    .live-job { color: var(--text-secondary); font-size: 0.87rem; overflow-wrap: anywhere; }
+    .live-meta {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.55rem;
+    }
+    .live-bar {
+      height: 6px;
+      border-radius: 999px;
+      background: var(--bg-card-alt, #eef1f5);
+      overflow: hidden;
+      margin-top: 0.7rem;
+    }
+    .live-bar span { display: block; height: 100%; background: var(--primary); border-radius: 999px; }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: var(--text-muted);
+    }
+    .dot.running { background: #12b76a; box-shadow: 0 0 0 3px rgba(18, 183, 106, 0.18); }
+    .dot.error { background: #f04438; box-shadow: 0 0 0 3px rgba(240, 68, 56, 0.18); }
+
+    /* --- Summary tiles --- */
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+      gap: 1rem;
+    }
+    .tile {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.2rem;
+      box-shadow: var(--shadow-lg);
+    }
+    .tile-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .tile-value {
+      font-family: var(--font-header);
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .tile-note { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.25rem; }
+
+    /* --- Filters --- */
+    .filters { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center; }
+    .filters select,
+    .filters input {
+      font: inherit;
+      font-size: 0.9rem;
+      padding: 0.5rem 0.7rem;
+      border: 1px solid var(--border-color);
+      border-radius: 9px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      min-width: 0;
+    }
+    .filters input[type="search"] { flex: 1; min-width: 160px; }
+
+    /* --- Run table ---
+       Wide content scrolls inside its own box, so the page itself never scrolls
+       sideways on a phone. --- */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      box-shadow: var(--shadow-lg);
+    }
+    table.runs { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 720px; }
+    table.runs th {
+      text-align: left;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+    table.runs td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+    table.runs tr:last-child td { border-bottom: none; }
+    table.runs tr.run-row { cursor: pointer; }
+    table.runs tr.run-row:hover { background: var(--bg-card-alt, #f7f9fc); }
+    .mono { font-family: var(--font-mono, monospace); font-size: 0.85em; }
+    .pill {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .pill.completed { background: rgba(18, 183, 106, 0.12); color: #027a48; }
+    .pill.error { background: rgba(240, 68, 56, 0.12); color: #b42318; }
+    .pill.cancelled { background: rgba(102, 112, 133, 0.12); color: #475467; }
+    .pill.running { background: rgba(47, 128, 237, 0.12); color: #1849a9; }
+
+    .detail-cell { background: var(--bg-card-alt, #f7f9fc); }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+      gap: 1rem 2rem;
+    }
+    .detail-grid dt {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .detail-grid dd { margin: 0.15rem 0 0.7rem; overflow-wrap: anywhere; }
+    .trace { width: 100%; height: 140px; display: block; margin-top: 0.8rem; }
+    .settings-json {
+      margin: 0;
+      padding: 0.8rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      max-height: 240px;
+    }
+
+    .empty {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+    .load-more-wrap { text-align: center; margin-top: 1.25rem; }
+
+    /* --- Token panel --- */
+    .token-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+    .token-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .token-row:last-of-type { border-bottom: none; }
+    .token-secret {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      background: var(--primary-light);
+    }
+    .token-secret code {
+      display: block;
+      overflow-wrap: anywhere;
+      font-size: 0.85rem;
+      margin: 0.5rem 0;
+    }
+    pre.snippet {
+      margin: 0.8rem 0 0;
+      padding: 0.9rem;
+      background: #101828;
+      color: #ecfdf3;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      overflow-x: auto;
+    }
+    .muted { color: var(--text-muted); font-size: 0.85rem; }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas-bg"></canvas>
+
+  <header id="main-header">
+    <div class="container">
+      <a href="index.html" class="logo-link" id="nav-logo-link">
+        <img src="assets/physbox_logo.png" alt="PhysBox Logo" class="logo-img">
+        <span class="logo-text">physbox<span class="logo-dot">.</span>io</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html#suite" id="nav-link-main-suite">Main Suite</a></li>
+          <li><a href="pro.html" id="nav-link-pro">PhysBox Pro</a></li>
+          <li><a href="hardware.html" id="nav-link-hardware">HIL &amp; Fabrication</a></li>
+          <li><a href="tutorials.html" id="nav-link-tutorials">Tutorials</a></li>
+          <li><a href="about.html" id="nav-link-about-hist">About</a></li>
+          <li><a href="contact.html" id="nav-link-contact-hist">Contact</a></li>
+          <li id="nav-account"></li>
+          <li><a href="https://github.com/physbox-io" target="_blank" class="nav-cta" id="nav-btn-github-hist"><i class="fab fa-github"></i> Star on GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="gate-section">
+    <div class="container">
+
+      <!-- State 1: verifying the stored session against the API -->
+      <div id="state-loading" class="gate-card">
+        <span class="gate-lock"><i class="fas fa-circle-notch fa-spin"></i></span>
+        <h1 class="gate-title">Checking your account&hellip;</h1>
+        <p class="gate-desc">One moment while we verify your PhysBox session.</p>
+      </div>
+
+      <!-- State 2: signed out -->
+      <div id="state-signed-out" class="gate-card" style="display: none;">
+        <span class="gate-lock"><i class="fas fa-clock-rotate-left"></i></span>
+        <h1 class="gate-title">Your workshop, from anywhere</h1>
+        <p class="gate-desc">
+          Sign in to see every job your machines have run &mdash; across Volt, Mesh and Etch &mdash;
+          with the settings each one was cut at, and live status for anything running right now.
+        </p>
+        <div class="gate-btn-wrap" id="google-signin-button"></div>
+        <p class="gate-error" id="gate-error" role="alert"></p>
+        <p style="margin-top: 1.5rem; font-size: 0.87rem; color: var(--text-muted);">
+          New here? <a href="pro.html" style="color: var(--primary); font-weight: 600;">Read about PhysBox Pro</a>.
+        </p>
+      </div>
+
+      <!-- State 3: signed in, free tier.
+           Driven by the 403 the first request returns rather than by this page
+           deciding what a tier means. Says what would have been recorded, because
+           "access denied" is not an argument for anything. -->
+      <div id="state-free" class="gate-card" style="display: none;">
+        <span class="gate-lock"><i class="fas fa-star"></i></span>
+        <h1 class="gate-title">Job history is part of Pro</h1>
+        <p class="gate-desc">
+          Your simulators, your machine control and your local saves all keep working exactly as they
+          do now &mdash; nothing here is being taken away.
+        </p>
+        <p class="gate-desc">
+          What Pro adds is memory. Every job gets archived as it runs: how long it took, how far it
+          got, the feed and spindle trace, the line an alarm stopped it on, and the material and
+          power it was cut at. Then it is all readable from this page, from inside the apps, and by
+          your own AI agent &mdash; so <em>&ldquo;what did I cut that walnut at in March&rdquo;</em>
+          has an answer.
+        </p>
+        <div class="gate-btn-wrap">
+          <a href="pro.html" class="btn btn-primary">See PhysBox Pro</a>
+        </div>
+        <p class="muted" style="margin-top: 1.25rem;">
+          Signed in as <span id="free-email"></span>.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- State 4: signed in with Pro -->
+  <section id="state-signed-in" style="display: none; padding: 7rem 0 5rem;">
+    <div class="container">
+
+      <div class="hist-head">
+        <div>
+          <h1 class="hist-title">Job History</h1>
+          <p class="hist-sub">Every run across every machine on your account.</p>
+        </div>
+        <div class="muted" id="live-updated" aria-live="polite"></div>
+      </div>
+
+      <h2 class="hist-section-title">Running now</h2>
+      <div class="live-grid" id="live-grid"></div>
+      <p class="muted" id="live-empty" style="display: none;">
+        No machine has reported in yet. A job appears here within a few seconds of starting.
+      </p>
+
+      <h2 class="hist-section-title">This month</h2>
+      <div class="tile-grid" id="tiles"></div>
+
+      <h2 class="hist-section-title">All runs</h2>
+      <div class="filters" style="margin-bottom: 1rem;">
+        <select id="f-app" aria-label="Filter by app">
+          <option value="">Every app</option>
+          <option value="etch">Etch</option>
+          <option value="physics">Mesh</option>
+          <option value="circuit">Volt</option>
+        </select>
+        <select id="f-status" aria-label="Filter by outcome">
+          <option value="">Any outcome</option>
+          <option value="completed">Completed</option>
+          <option value="error">Error</option>
+          <option value="cancelled">Cancelled</option>
+          <option value="running">Running</option>
+        </select>
+        <input type="date" id="f-since" aria-label="From date">
+        <input type="date" id="f-until" aria-label="To date">
+        <input type="search" id="f-q" placeholder="Search job, document or material&hellip;" aria-label="Search runs">
+      </div>
+
+      <div class="table-wrap">
+        <table class="runs">
+          <thead>
+            <tr>
+              <th scope="col">When</th>
+              <th scope="col">App</th>
+              <th scope="col">Machine</th>
+              <th scope="col">Job</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Outcome</th>
+              <th scope="col">Material</th>
+            </tr>
+          </thead>
+          <tbody id="runs-body"></tbody>
+        </table>
+        <div class="empty" id="runs-empty" style="display: none;">
+          Nothing archived yet. Runs appear here as soon as a machine reports one.
+        </div>
+      </div>
+      <div class="load-more-wrap">
+        <button type="button" class="btn btn-secondary" id="load-more" style="display: none;">Load older runs</button>
+      </div>
+
+      <h2 class="hist-section-title">Agent access</h2>
+      <div class="token-panel">
+        <p style="margin-bottom: 0.9rem;">
+          A read token lets your own AI agent query this archive over
+          <a href="https://pypi.org/project/physbox-mcp/" target="_blank">physbox-mcp</a> with no
+          browser open. It can read your runs and documents; it cannot drive a machine.
+        </p>
+        <div id="token-list"></div>
+        <div style="margin-top: 1rem; display: flex; gap: 0.7rem; flex-wrap: wrap;">
+          <input type="text" id="token-name" placeholder="What is this token for?" aria-label="Token name"
+                 style="font: inherit; font-size: 0.9rem; padding: 0.5rem 0.7rem; border: 1px solid var(--border-color); border-radius: 9px; flex: 1; min-width: 180px;">
+          <button type="button" class="btn btn-primary" id="token-create">Mint a read token</button>
+        </div>
+        <div class="token-secret" id="token-secret">
+          <strong>Copy this now &mdash; it is not shown again.</strong>
+          <code id="token-value"></code>
+          <p class="muted" style="margin-top: 0.9rem;">Add it to your MCP config:</p>
+          <pre class="snippet" id="token-snippet"></pre>
+          <p class="muted" style="margin-top: 0.8rem;">
+            That file is <code>.mcp.json</code> in your project, or your MCP client's own config &mdash;
+            <code>%APPDATA%\Claude</code> on Windows, <code>~/.config</code> on Linux,
+            <code>~/Library/Application Support/Claude</code> on macOS. If you run
+            <code>physbox-mcp</code> inside WSL while browsing on Windows, the token belongs on the
+            WSL side, where the server actually runs. Alternatively, hand the token to your agent
+            once and ask it to call <code>physbox_set_token</code>.
+          </p>
+        </div>
+        <p class="gate-error" id="token-error" role="alert"></p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer style="padding: 2rem 0;">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p class="footer-copy">&copy; 2026 physbox.io. Licensed under PPPL-1.0. Built for the modern web.</p>
+        <div class="footer-social">
+          <a href="https://github.com/physbox-io" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    /*
+     * The whole workshop on one page: what is cutting right now, and everything that
+     * ever did.
+     *
+     * Four states, like download.html: checking, signed out, signed in without Pro,
+     * signed in with Pro. The third is not an error page — it is driven by the
+     * `pro_required` code the first request returns, so this page never carries its
+     * own copy of what a tier means.
+     *
+     * Nothing here can control a machine. The website is a monitoring surface; the
+     * only thing that drives a cut is the app plugged into it.
+     */
+    (function () {
+      'use strict';
+
+      var APP_NAMES = { etch: 'Etch', physics: 'Mesh', circuit: 'Volt', process: 'Flux' };
+
+      var els = {
+        loading: document.getElementById('state-loading'),
+        signedOut: document.getElementById('state-signed-out'),
+        free: document.getElementById('state-free'),
+        signedIn: document.getElementById('state-signed-in'),
+        error: document.getElementById('gate-error')
+      };
+
+      var liveTimer = null;
+      var nextBefore = null;
+      var openRunId = null;
+
+      function showState(which) {
+        els.loading.style.display = which === 'loading' ? '' : 'none';
+        els.signedOut.style.display = which === 'signedOut' ? '' : 'none';
+        els.free.style.display = which === 'free' ? '' : 'none';
+        els.signedIn.style.display = which === 'signedIn' ? 'block' : 'none';
+      }
+
+      function showError(message) {
+        els.error.textContent = message;
+        els.error.style.display = 'block';
+      }
+
+      function text(el, value) { el.textContent = value; }
+
+      /* ── Formatting ───────────────────────────────────────────────────────── */
+
+      function fmtWhen(iso) {
+        var d = new Date(iso);
+        if (isNaN(d.getTime())) return '—';
+        return d.toLocaleString(undefined, {
+          year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
+      }
+
+      /** Durations people read: 4h 12m, 12m 30s, 45s. */
+      function fmtDuration(seconds) {
+        var s = Math.max(0, Math.round(seconds || 0));
+        var h = Math.floor(s / 3600);
+        var m = Math.floor((s % 3600) / 60);
+        var rest = s % 60;
+        if (h) return h + 'h ' + m + 'm';
+        if (m) return m + 'm ' + rest + 's';
+        return rest + 's';
+      }
+
+      /**
+       * The material a run was cut from, dug out of whatever the app recorded.
+       *
+       * `settings` has no schema across the four apps — each writes what it knows —
+       * so this looks for the usual names and gives up quietly rather than showing
+       * a wrong answer confidently.
+       */
+      function materialOf(run) {
+        var s = run.settings;
+        if (!s || typeof s !== 'object') return '';
+        return s.material || s.stock || s.stockMaterial || '';
+      }
+
+      function statusPill(status) {
+        var span = document.createElement('span');
+        var known = ['completed', 'error', 'cancelled', 'running'].indexOf(status) >= 0;
+        span.className = 'pill ' + (known ? status : 'cancelled');
+        span.textContent = status;
+        return span;
+      }
+
+      /* ── Live strip ───────────────────────────────────────────────────────── */
+
+      function liveCard(t) {
+        var card = document.createElement('div');
+        card.className = 'live-card';
+
+        var top = document.createElement('div');
+        top.className = 'live-top';
+
+        var dot = document.createElement('span');
+        var running = t.status === 'running' || t.status === 'Run';
+        var errored = /alarm|error/i.test(t.status || '');
+        dot.className = 'dot' + (running ? ' running' : errored ? ' error' : '');
+        top.appendChild(dot);
+
+        var name = document.createElement('div');
+        name.className = 'live-name';
+        // textContent throughout: these strings come back from the API but they are
+        // the user's own device and job names and have no business being parsed as
+        // HTML.
+        name.textContent = (APP_NAMES[t.appId] || t.appId) + ' · ' + t.deviceId;
+        top.appendChild(name);
+        card.appendChild(top);
+
+        var job = document.createElement('div');
+        job.className = 'live-job';
+        job.textContent = t.jobName || t.status || 'idle';
+        card.appendChild(job);
+
+        var meta = document.createElement('div');
+        meta.className = 'live-meta';
+        var xyz = t.xyz || { x: 0, y: 0, z: 0 };
+        var bits = [
+          'X' + Number(xyz.x).toFixed(2),
+          'Y' + Number(xyz.y).toFixed(2),
+          'Z' + Number(xyz.z).toFixed(2)
+        ];
+        if (t.totalLines) bits.push('line ' + t.currentLine + '/' + t.totalLines);
+        if (t.feedRate) bits.push('F' + Math.round(t.feedRate));
+        meta.textContent = bits.join('  ');
+        card.appendChild(meta);
+
+        if (t.progressPercent > 0) {
+          var bar = document.createElement('div');
+          bar.className = 'live-bar';
+          var fill = document.createElement('span');
+          fill.style.width = Math.min(100, Math.max(0, t.progressPercent)) + '%';
+          bar.appendChild(fill);
+          card.appendChild(bar);
+        }
+
+        if (t.lastError) {
+          var err = document.createElement('div');
+          err.className = 'live-job';
+          err.style.color = '#b42318';
+          err.style.marginTop = '0.5rem';
+          err.textContent = t.lastError;
+          card.appendChild(err);
+        }
+
+        return card;
+      }
+
+      function loadLive() {
+        return PhysBoxAuth.fetchLatestTelemetry().then(function (res) {
+          var grid = document.getElementById('live-grid');
+          var rows = res.telemetry || [];
+          grid.replaceChildren.apply(grid, rows.map(liveCard));
+          document.getElementById('live-empty').style.display = rows.length ? 'none' : 'block';
+          text(document.getElementById('live-updated'),
+            rows.length ? 'Updated ' + new Date().toLocaleTimeString() : '');
+        }).catch(function () {
+          // A dropped poll is not worth a banner; the next one is three seconds away.
+        });
+      }
+
+      /**
+       * Polls only while the tab is actually being looked at.
+       *
+       * A dashboard left open in a background tab overnight would otherwise make
+       * twenty-eight thousand requests to watch a machine nobody is watching.
+       */
+      function startLivePolling() {
+        function tick() { if (!document.hidden) loadLive(); }
+        loadLive();
+        liveTimer = setInterval(tick, 3000);
+        document.addEventListener('visibilitychange', function () {
+          if (!document.hidden) loadLive();
+        });
+      }
+
+      /* ── Summary tiles ────────────────────────────────────────────────────── */
+
+      function tile(label, value, note) {
+        var el = document.createElement('div');
+        el.className = 'tile';
+        var l = document.createElement('div');
+        l.className = 'tile-label';
+        l.textContent = label;
+        var v = document.createElement('div');
+        v.className = 'tile-value';
+        v.textContent = value;
+        el.appendChild(l);
+        el.appendChild(v);
+        if (note) {
+          var n = document.createElement('div');
+          n.className = 'tile-note';
+          n.textContent = note;
+          el.appendChild(n);
+        }
+        return el;
+      }
+
+      function loadSummary() {
+        var now = new Date();
+        var monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+        return PhysBoxAuth.fetchRunSummary({ since: monthStart.toISOString() }).then(function (s) {
+          var busiest = (s.byMaterial || []).filter(function (m) { return m.material !== 'unspecified'; })[0];
+          var tiles = document.getElementById('tiles');
+          tiles.replaceChildren(
+            tile('Runs', String(s.runs || 0), 'since ' + monthStart.toLocaleDateString(undefined, { month: 'long' })),
+            tile('Cutting time', fmtDuration(s.cutSeconds)),
+            tile('Failed', String(s.failed || 0),
+              s.runs ? Math.round((s.failureRate || 0) * 100) + '% of runs' : ''),
+            tile('Most used', busiest ? busiest.material : '—',
+              busiest ? busiest.runs + ' runs' : 'no material recorded')
+          );
+        });
+      }
+
+      /* ── Run table ────────────────────────────────────────────────────────── */
+
+      function filters() {
+        return {
+          app_id: document.getElementById('f-app').value,
+          status: document.getElementById('f-status').value,
+          since: document.getElementById('f-since').value,
+          until: document.getElementById('f-until').value,
+          q: document.getElementById('f-q').value.trim(),
+          limit: 25
+        };
+      }
+
+      function cell(row, value, className) {
+        var td = document.createElement('td');
+        if (className) td.className = className;
+        if (value instanceof Node) td.appendChild(value); else td.textContent = value;
+        row.appendChild(td);
+        return td;
+      }
+
+      function runRow(run) {
+        var tr = document.createElement('tr');
+        tr.className = 'run-row';
+        tr.tabIndex = 0;
+        tr.setAttribute('role', 'button');
+        tr.setAttribute('aria-expanded', 'false');
+
+        cell(tr, fmtWhen(run.startedAt));
+        cell(tr, APP_NAMES[run.appId] || run.appId);
+        cell(tr, run.deviceId, 'mono');
+        cell(tr, run.jobName || '—');
+        cell(tr, run.status === 'running' ? 'running' : fmtDuration(run.durationSeconds));
+        cell(tr, statusPill(run.status));
+        cell(tr, materialOf(run) || '—');
+
+        function toggle() { toggleDetail(tr, run); }
+        tr.addEventListener('click', toggle);
+        tr.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+        return tr;
+      }
+
+      /**
+       * Draws the trace as a plain inline SVG.
+       *
+       * A charting library for two polylines would be a bigger download than this
+       * whole page, and the shape of a cut — did the feed collapse, where did it
+       * stop — is legible at this size without axes.
+       */
+      function traceSvg(samples) {
+        var ns = 'http://www.w3.org/2000/svg';
+        var svg = document.createElementNS(ns, 'svg');
+        svg.setAttribute('class', 'trace');
+        svg.setAttribute('viewBox', '0 0 600 140');
+        svg.setAttribute('preserveAspectRatio', 'none');
+        svg.setAttribute('role', 'img');
+        svg.setAttribute('aria-label', 'Progress and feed rate over the life of the run');
+
+        if (!samples.length) return svg;
+
+        var maxT = Math.max.apply(null, samples.map(function (s) { return s.tMs; })) || 1;
+        var maxFeed = Math.max.apply(null, samples.map(function (s) { return s.feedRate || 0; })) || 1;
+
+        function line(points, colour, width) {
+          var el = document.createElementNS(ns, 'polyline');
+          el.setAttribute('fill', 'none');
+          el.setAttribute('stroke', colour);
+          el.setAttribute('stroke-width', width);
+          el.setAttribute('vector-effect', 'non-scaling-stroke');
+          el.setAttribute('points', points.join(' '));
+          return el;
+        }
+
+        var progress = [];
+        var feed = [];
+        samples.forEach(function (s) {
+          var x = (s.tMs / maxT) * 600;
+          progress.push(x + ',' + (140 - (Math.min(100, s.progressPercent || 0) / 100) * 130));
+          feed.push(x + ',' + (140 - ((s.feedRate || 0) / maxFeed) * 130));
+        });
+
+        svg.appendChild(line(feed, 'rgba(102, 112, 133, 0.55)', '1.5'));
+        svg.appendChild(line(progress, 'var(--primary, #2f80ed)', '2'));
+        return svg;
+      }
+
+      function detailRow(run, detail) {
+        var tr = document.createElement('tr');
+        tr.className = 'detail-row';
+        var td = document.createElement('td');
+        td.className = 'detail-cell';
+        td.colSpan = 7;
+
+        var dl = document.createElement('dl');
+        dl.className = 'detail-grid';
+        function pair(label, value) {
+          var dt = document.createElement('dt');
+          dt.textContent = label;
+          var dd = document.createElement('dd');
+          dd.textContent = value;
+          dl.appendChild(dt);
+          dl.appendChild(dd);
+        }
+        pair('Started', fmtWhen(run.startedAt));
+        pair('Ended', run.endedAt ? fmtWhen(run.endedAt) : 'still running');
+        pair('Progress', Math.round(run.progressPercent || 0) + '%');
+        pair('Lines', run.totalLines ? run.linesCompleted + ' of ' + run.totalLines : '—');
+        if (run.lastError) pair('Error', run.lastError);
+        if (run.documentId) pair('Document', run.documentId + ' rev ' + (run.documentRevision || '?'));
+        td.appendChild(dl);
+
+        if (run.settings) {
+          var pre = document.createElement('pre');
+          pre.className = 'settings-json';
+          pre.textContent = JSON.stringify(run.settings, null, 2);
+          td.appendChild(pre);
+        }
+
+        var samples = (detail && detail.samples) || [];
+        if (samples.length > 1) {
+          td.appendChild(traceSvg(samples));
+          var key = document.createElement('p');
+          key.className = 'muted';
+          key.style.marginTop = '0.4rem';
+          key.textContent = 'Progress (solid) and feed rate (grey) over ' + fmtDuration(run.durationSeconds) + '.';
+          td.appendChild(key);
+        }
+
+        tr.appendChild(td);
+        return tr;
+      }
+
+      function closeOpenDetail() {
+        var existing = document.querySelector('#runs-body .detail-row');
+        if (existing) existing.remove();
+        var expanded = document.querySelector('#runs-body tr[aria-expanded="true"]');
+        if (expanded) expanded.setAttribute('aria-expanded', 'false');
+        openRunId = null;
+      }
+
+      function toggleDetail(tr, run) {
+        var wasOpen = openRunId === run.id;
+        closeOpenDetail();
+        if (wasOpen) return;
+
+        openRunId = run.id;
+        tr.setAttribute('aria-expanded', 'true');
+
+        // Painted immediately from what the list already knows, then upgraded with
+        // the trace when it arrives — the settings are the part people came for and
+        // they should not wait on a second request.
+        var placeholder = detailRow(run, null);
+        tr.parentNode.insertBefore(placeholder, tr.nextSibling);
+
+        PhysBoxAuth.fetchRun(run.id).then(function (res) {
+          if (openRunId !== run.id) return;
+          var filled = detailRow(res.run || run, res);
+          placeholder.replaceWith(filled);
+        }).catch(function () { /* the summary is already on screen */ });
+      }
+
+      function loadRuns(append) {
+        var params = filters();
+        if (append && nextBefore) params.before = nextBefore;
+
+        return PhysBoxAuth.fetchRuns(params).then(function (res) {
+          var body = document.getElementById('runs-body');
+          if (!append) {
+            closeOpenDetail();
+            body.replaceChildren();
+          }
+          (res.runs || []).forEach(function (run) { body.appendChild(runRow(run)); });
+
+          nextBefore = res.nextBefore;
+          document.getElementById('load-more').style.display = res.nextBefore ? '' : 'none';
+          document.getElementById('runs-empty').style.display = body.children.length ? 'none' : 'block';
+        });
+      }
+
+      /* ── Agent tokens ─────────────────────────────────────────────────────── */
+
+      function snippetFor(token) {
+        return JSON.stringify({
+          mcpServers: {
+            'physbox-mcp': {
+              command: 'physbox-mcp',
+              args: ['--stdio'],
+              env: { PHYSBOX_API_TOKEN: token }
+            }
+          }
+        }, null, 2);
+      }
+
+      function tokenRow(t) {
+        var row = document.createElement('div');
+        row.className = 'token-row';
+
+        var left = document.createElement('div');
+        var name = document.createElement('strong');
+        name.textContent = t.name || 'Agent token';
+        left.appendChild(name);
+        var meta = document.createElement('div');
+        meta.className = 'muted';
+        meta.textContent = t.scope + ' · created ' + fmtWhen(t.createdAt) +
+          (t.lastUsedAt ? ' · last used ' + fmtWhen(t.lastUsedAt) : ' · never used');
+        left.appendChild(meta);
+        row.appendChild(left);
+
+        var revoke = document.createElement('button');
+        revoke.type = 'button';
+        revoke.className = 'btn btn-secondary';
+        revoke.textContent = 'Revoke';
+        revoke.addEventListener('click', function () {
+          revoke.disabled = true;
+          PhysBoxAuth.revokeToken(t.id).then(loadTokens).catch(function (err) {
+            revoke.disabled = false;
+            tokenError(err.message);
+          });
+        });
+        row.appendChild(revoke);
+        return row;
+      }
+
+      function tokenError(message) {
+        var el = document.getElementById('token-error');
+        el.textContent = message;
+        el.style.display = message ? 'block' : 'none';
+      }
+
+      function loadTokens() {
+        return PhysBoxAuth.fetchTokens().then(function (res) {
+          var list = document.getElementById('token-list');
+          var rows = res.tokens || [];
+          if (!rows.length) {
+            var none = document.createElement('p');
+            none.className = 'muted';
+            none.textContent = 'No tokens yet.';
+            list.replaceChildren(none);
+            return;
+          }
+          list.replaceChildren.apply(list, rows.map(tokenRow));
+        });
+      }
+
+      document.getElementById('token-create').addEventListener('click', function () {
+        var btn = this;
+        var nameInput = document.getElementById('token-name');
+        btn.disabled = true;
+        tokenError('');
+        PhysBoxAuth.createToken(nameInput.value.trim() || 'Agent token').then(function (res) {
+          nameInput.value = '';
+          document.getElementById('token-value').textContent = res.token;
+          document.getElementById('token-snippet').textContent = snippetFor(res.token);
+          document.getElementById('token-secret').style.display = 'block';
+          return loadTokens();
+        }).catch(function (err) {
+          tokenError(err.message);
+        }).then(function () {
+          btn.disabled = false;
+        });
+      });
+
+      /* ── Wiring ───────────────────────────────────────────────────────────── */
+
+      ['f-app', 'f-status', 'f-since', 'f-until'].forEach(function (id) {
+        document.getElementById(id).addEventListener('change', function () { loadRuns(false); });
+      });
+
+      // Debounced: a search box that fired per keystroke would query the archive
+      // eight times on the way to typing "walnut".
+      var searchTimer = null;
+      document.getElementById('f-q').addEventListener('input', function () {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(function () { loadRuns(false); }, 300);
+      });
+
+      document.getElementById('load-more').addEventListener('click', function () { loadRuns(true); });
+
+      function showPro(user) {
+        showState('signedIn');
+        startLivePolling();
+        loadSummary().catch(function () {});
+        loadRuns(false).catch(function () {});
+        loadTokens().catch(function () {});
+      }
+
+      function showFree(user) {
+        if (liveTimer) clearInterval(liveTimer);
+        text(document.getElementById('free-email'), user.email || 'your account');
+        showState('free');
+      }
+
+      function showSignedOut() {
+        showState('signedOut');
+        PhysBoxAuth.renderGoogleSignInButton(
+          document.getElementById('google-signin-button'),
+          function (credential) {
+            PhysBoxAuth.loginWithGoogle(credential)
+              .then(function (data) { route(data.user); })
+              .catch(function (err) { showError(err.message || 'Sign-in failed.'); });
+          },
+          showError
+        );
+      }
+
+      /**
+       * Decides which state to show, and asks the API rather than guessing.
+       *
+       * The stored profile says which tier it *was* at sign-in. That is good enough
+       * to paint optimistically, but the authority is the 403 — so a Pro attempt is
+       * made and the free card appears only when the server says so. An account that
+       * upgraded five minutes ago does not have to sign out and back in.
+       */
+      function route(user) {
+        if (!user) { showSignedOut(); return; }
+
+        PhysBoxAuth.fetchRuns({ limit: 1 }).then(function () {
+          showPro(user);
+        }).catch(function (err) {
+          if (PhysBoxAuth.isProRequired(err)) { showFree(user); return; }
+          if (err.status === 401) { PhysBoxAuth.clearStoredAuth(); showSignedOut(); return; }
+          // Something else went wrong — show the dashboard anyway rather than
+          // accusing a paying account of not being one.
+          showPro(user);
+        });
+      }
+
+      PhysBoxAuth.fetchCurrentUser()
+        .then(route)
+        .catch(function () { showSignedOut(); });
+    })();
+  </script>
+</body>
+
+</html>

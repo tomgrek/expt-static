@@ -98,10 +98,27 @@
     }).then(function (response) {
       if (!response.ok) {
         return response.json().catch(function () { return { error: response.statusText }; })
-          .then(function (data) { throw new Error(data.error || 'HTTP error ' + response.status); });
+          .then(function (data) {
+            var err = new Error(data.error || 'HTTP error ' + response.status);
+            /*
+             * The machine-readable half, carried through so callers branch on a
+             * code rather than on prose. `pro_required` is the one every page that
+             * touches a Pro route has to handle, and matching on the sentence
+             * would break the next time somebody improved the wording.
+             */
+            err.status = response.status;
+            err.code = data.code;
+            err.upgradeUrl = data.upgradeUrl;
+            throw err;
+          });
       }
       return response.json();
     });
+  }
+
+  /** True for the refusal a free account gets from a Pro-only route. */
+  function isProRequired(err) {
+    return Boolean(err && err.code === 'pro_required');
   }
 
   /**
@@ -133,6 +150,60 @@
       clearStoredAuth();
       return null;
     });
+  }
+
+  /* ==========================================================================
+     Account data used by history.html
+     --------------------------------------------------------------------------
+     Thin wrappers so a page does not hand-roll a fetch with its own
+     Authorization header — which download.html does today, because `request`
+     used to be private, and which is how a page ends up with its own idea of
+     what an error looks like.
+     ========================================================================== */
+
+  function query(params) {
+    var parts = [];
+    Object.keys(params || {}).forEach(function (k) {
+      var v = params[k];
+      if (v === undefined || v === null || v === '') return;
+      parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(v));
+    });
+    return parts.length ? '?' + parts.join('&') : '';
+  }
+
+  /** Archived runs, newest first. Pro only. */
+  function fetchRuns(params) {
+    return request('/api/runs' + query(params));
+  }
+
+  /** One run with its position/feed/spindle trace. Pro only. */
+  function fetchRun(runId) {
+    return request('/api/runs/' + encodeURIComponent(runId));
+  }
+
+  /** Counts, cutting time, failures and materials over a range. Pro only. */
+  function fetchRunSummary(params) {
+    return request('/api/runs/summary' + query(params));
+  }
+
+  /** What every machine on the account is doing right now. Pro. */
+  function fetchLatestTelemetry(appId) {
+    return request('/api/telemetry/latest' + query({ app_id: appId }));
+  }
+
+  function fetchTokens() {
+    return request('/api/tokens');
+  }
+
+  function createToken(name) {
+    return request('/api/tokens', {
+      method: 'POST',
+      body: JSON.stringify({ name: name, scope: 'read' })
+    });
+  }
+
+  function revokeToken(id) {
+    return request('/api/tokens/' + encodeURIComponent(id), { method: 'DELETE' });
   }
 
   var scriptPromise = null;
@@ -281,6 +352,7 @@
         '<div class="nav-account-email"></div>' +
         '<span class="nav-account-tier"></span>' +
       '</div>' +
+      '<a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> Job History</a>' +
       '<a href="pro.html"><i class="fa-solid fa-star"></i> PhysBox Pro</a>' +
       '<a href="download.html"><i class="fa-solid fa-download"></i> Downloads</a>' +
       '<button type="button" class="nav-account-signout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button>';
@@ -346,6 +418,15 @@
     clearStoredAuth: clearStoredAuth,
     loginWithGoogle: loginWithGoogle,
     fetchCurrentUser: fetchCurrentUser,
+    apiRequest: request,
+    isProRequired: isProRequired,
+    fetchRuns: fetchRuns,
+    fetchRun: fetchRun,
+    fetchRunSummary: fetchRunSummary,
+    fetchLatestTelemetry: fetchLatestTelemetry,
+    fetchTokens: fetchTokens,
+    createToken: createToken,
+    revokeToken: revokeToken,
     loadGoogleIdentity: loadGoogleIdentity,
     renderGoogleSignInButton: renderGoogleSignInButton,
     disableGoogleAutoSelect: disableGoogleAutoSelect,
