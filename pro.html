@@ -596,6 +596,55 @@
           </div>
         </div>
       </div>
+
+      <!-- 5. Gerber Export -->
+      <div class="pro-benefit-row reverse reveal" id="gerber-export">
+        <div class="pro-benefit-media">
+          <div class="pro-panel">
+            <div class="pro-panel-title"><i class="fas fa-file-zipper"></i> board-gerbers.zip</div>
+            <div class="pro-device-row">
+              <span class="pro-device-icon"><i class="fas fa-layer-group"></i></span>
+              <div class="pro-device-meta">
+                <div class="pro-device-name">board-F_Cu.gtl &amp; board-B_Cu.gbl</div>
+                <div class="pro-device-sub">Top &amp; bottom copper, RS-274X</div>
+              </div>
+              <span class="pro-status done">Ready</span>
+            </div>
+            <div class="pro-device-row">
+              <span class="pro-device-icon"><i class="fas fa-vector-square"></i></span>
+              <div class="pro-device-meta">
+                <div class="pro-device-name">board-Edge_Cuts.gko</div>
+                <div class="pro-device-sub">Board outline &amp; cutouts</div>
+              </div>
+              <span class="pro-status done">Ready</span>
+            </div>
+            <div class="pro-device-row">
+              <span class="pro-device-icon"><i class="fas fa-circle-dot"></i></span>
+              <div class="pro-device-meta">
+                <div class="pro-device-name">board.drl</div>
+                <div class="pro-device-sub">Excellon drill file, by tool diameter</div>
+              </div>
+              <span class="pro-status done">Ready</span>
+            </div>
+          </div>
+        </div>
+        <div class="deepdive-content">
+          <span class="pro-benefit-num">05</span>
+          <h3 class="pro-benefit-title"><i class="fas fa-file-zipper" style="color: var(--circuit-color);"></i> Export to Any Fab House</h3>
+          <p class="pro-benefit-body">
+            The web app's route from schematic to copper has always ended at your own CNC &mdash; G-code streamed straight over WebSerial to a mill sitting on your bench. Most people designing a board don't own one. Pro adds the other ending: a standard Gerber (RS-274X) and Excellon drill package, zipped in one click, that JLCPCB, PCBWay, OSHPark or any other fab house already knows how to read.
+          </p>
+          <p class="pro-benefit-body">
+            Nothing about milling changes &mdash; it's still free, still local, still yours. This is for the board that's too fine-pitch for a mill, needs two-layer plated-through vias, or you'd simply rather have somebody else's fab house make it. The <a href="pro.html#native-app">native desktop app</a> already exports Gerber for free, since it has no cloud costs to recover; this is what brings the same export to the browser.
+          </p>
+          <ul class="pro-check-list">
+            <li><i class="fas fa-check"></i> <span>Standard <strong>RS-274X</strong> Gerber layers plus an <strong>Excellon</strong> drill file &mdash; no proprietary format.</span></li>
+            <li><i class="fas fa-check"></i> <span>Copper fill, traces, pads and board outline exported straight from the routed layout.</span></li>
+            <li><i class="fas fa-check"></i> <span>Works with any fab house's upload flow &mdash; JLCPCB, PCBWay, OSHPark and others.</span></li>
+            <li><i class="fas fa-check"></i> <span>One click from the PCB export panel, bundled as a single <code>.zip</code>.</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -662,6 +711,11 @@
               <td>PhysBox Native desktop app</td>
               <td><i class="fas fa-xmark pro-no"></i> Not available</td>
               <td><i class="fas fa-check pro-yes"></i> Linux &amp; Windows download</td>
+            </tr>
+            <tr>
+              <td>Gerber &amp; Excellon export (Volt)</td>
+              <td><i class="fas fa-xmark pro-no"></i> Milling via WebSerial only</td>
+              <td><i class="fas fa-check pro-yes"></i> Gerber + drill file, any fab house</td>
             </tr>
             <tr>
               <td>Rendering</td>
